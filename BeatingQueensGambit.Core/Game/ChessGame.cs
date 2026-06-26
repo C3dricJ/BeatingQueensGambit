@@ -9,5 +9,7 @@ public class ChessGame
     public ChessGame()
     {
         Board = new ChessBoard();
+
+        BoardInitializer.InitializeStandardBoard(Board);
     }
 }
