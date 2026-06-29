@@ -29,6 +29,22 @@ public class Pawn : Piece
             legalMoves.Add(oneForward);
         }
 
+        bool isStartingRow =
+        (IsWhite && currentPosition.Row == 6) ||
+        (IsBlack && currentPosition.Row == 1);
+
+        var twoForward = new Position(
+        currentPosition.Row + direction * 2,
+        currentPosition.Column);
+
+        if (isStartingRow &&
+        board.IsEmpty(oneForward) &&
+        board.IsEmpty(twoForward))
+        {
+            legalMoves.Add(twoForward);
+        }
+
         return legalMoves;
     }
+
 }
