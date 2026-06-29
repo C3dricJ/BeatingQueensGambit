@@ -1,4 +1,6 @@
 using BeatingQueensGambit.Core.Enums;
+using BeatingQueensGambit.Core.Models;
+using BeatingQueensGambit.Core.Board;
 
 namespace BeatingQueensGambit.Core.Pieces;
 
@@ -17,4 +19,8 @@ public abstract class Piece
         Color = color;
         Type = type;
     }
+
+    public abstract IEnumerable<Position> GetLegalMoves(
+        ChessBoard board,
+        Position currentPosition);
 }
