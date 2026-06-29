@@ -1,10 +1,16 @@
-﻿namespace BeatingQueensGambit.Tests;
+﻿using BeatingQueensGambit.Core.Game;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace BeatingQueensGambit.Tests;
 
 [TestClass]
-public sealed class Test1
+public class ChessGameTests
 {
     [TestMethod]
-    public void TestMethod1()
+    public void NewGame_ShouldCreateBoard()
     {
+        var game = new ChessGame();
+
+        Assert.IsNotNull(game.Board);
     }
 }
