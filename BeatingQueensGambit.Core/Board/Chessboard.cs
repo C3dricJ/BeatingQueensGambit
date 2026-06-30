@@ -77,4 +77,21 @@ public class ChessBoard
 
         SetPiece(move.From, null);
     }
+
+    public ChessBoard Clone()
+    {
+        var clone = new ChessBoard();
+
+        for (int row = 0; row < 8; row++)
+        {
+            for (int column = 0; column < 8; column++)
+            {
+                clone.Squares[row, column] = Squares[row, column];
+            }
+        }
+
+        return clone;
+    }
+
+    
 }

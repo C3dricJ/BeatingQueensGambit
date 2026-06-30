@@ -3,6 +3,7 @@ using BeatingQueensGambit.Core.Enums;
 using BeatingQueensGambit.Core.Moves;
 using BeatingQueensGambit.Core.Pieces;
 using System.Linq;
+using BeatingQueensGambit.Core.Rules;
 
 namespace BeatingQueensGambit.Core.Game;
 
@@ -48,6 +49,18 @@ public class ChessGame
         {
             throw new InvalidOperationException(
             "Illegal move for selected piece.");
+        }
+
+        var testBoard = Board.Clone();
+
+        testBoard.ApplyMove(move);
+
+        if (KingSafety.IsKingInCheck(
+           testBoard,
+           CurrentTurn))
+        {
+            throw new InvalidOperationException(
+               "You cannot leave your king in check.");
         }
 
         Board.ApplyMove(move);
