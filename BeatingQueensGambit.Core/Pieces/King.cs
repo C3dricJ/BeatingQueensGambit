@@ -18,34 +18,49 @@ public class King : Piece
     {
         var legalMoves = new List<Position>();
 
-        int[][] directions =
+        int[] directions = { -1, 0, 1 };
+
+        foreach (int rowOffset in directions)
         {
-            new[] {-1,-1},
-            new[] {-1, 0},
-            new[] {-1, 1},
-            new[] { 0,-1},
-            new[] { 0, 1},
-            new[] { 1,-1},
-            new[] { 1, 0},
-            new[] { 1, 1}
-        };
-
-        foreach (var direction in directions)
-        {
-            var nextPosition = new Position(
-                currentPosition.Row + direction[0],
-                currentPosition.Column + direction[1]);
-
-            if (!board.IsInsideBoard(nextPosition))
-                continue;
-
-            if (board.IsEmpty(nextPosition))
+            foreach (int columnOffset in directions)
             {
-                legalMoves.Add(nextPosition);
+                if (rowOffset == 0 && columnOffset == 0)
+                    continue;
+
+                var destination = new Position(
+                    currentPosition.Row + rowOffset,
+                    currentPosition.Column + columnOffset);
+
+                if (!board.IsInsideBoard(destination))
+                    continue;
+
+                if (board.IsEmpty(destination) ||
+                    board.HasEnemyPiece(destination, Color))
+                {
+                    legalMoves.Add(destination);
+                }
             }
-            else if (board.HasEnemyPiece(nextPosition, Color))
+        }
+
+        //---------------------------------------------------
+        // Kingside Castling
+        //---------------------------------------------------
+
+        if (!HasMoved)
+        {
+            Position rookPosition =
+                new Position(currentPosition.Row, 7);
+
+            var rook =
+                board.GetPiece(rookPosition) as Rook;
+
+            if (rook != null &&
+                !rook.HasMoved &&
+                board.IsEmpty(new Position(currentPosition.Row, 5)) &&
+                board.IsEmpty(new Position(currentPosition.Row, 6)))
             {
-                legalMoves.Add(nextPosition);
+                legalMoves.Add(
+                    new Position(currentPosition.Row, 6));
             }
         }
 
