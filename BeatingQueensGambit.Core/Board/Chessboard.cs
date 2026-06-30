@@ -70,6 +70,34 @@ public class ChessBoard
         if (piece == null)
             return;
 
+        //--------------------------------------------------
+        // Handle Kingside Castling
+        //--------------------------------------------------
+
+        if (piece is King &&
+            Math.Abs(move.To.Column - move.From.Column) == 2)
+        {
+            Position rookStart =
+                new Position(move.From.Row, 7);
+
+            Position rookEnd =
+                new Position(move.From.Row, 5);
+
+            var rook = GetPiece(rookStart);
+
+            if (rook != null)
+            {
+                SetPiece(rookEnd, rook);
+                SetPiece(rookStart, null);
+
+                rook.MarkAsMoved();
+            }
+        }
+
+        //--------------------------------------------------
+        // Move the selected piece
+        //--------------------------------------------------
+
         SetPiece(move.To, piece);
 
         SetPiece(move.From, null);
