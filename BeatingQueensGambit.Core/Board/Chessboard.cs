@@ -95,6 +95,31 @@ public class ChessBoard
             }
         }
 
+        //---------------------------------------------------
+// Queenside Castling
+//---------------------------------------------------
+
+        if (piece is King &&
+            move.From.Column == 4 &&
+            move.To.Column == 2)
+        {
+            var rook =
+                GetPiece(new Position(move.From.Row, 0));
+
+            if (rook != null)
+            {
+                SetPiece(
+                    new Position(move.From.Row, 3),
+                    rook);
+
+                SetPiece(
+                    new Position(move.From.Row, 0),
+                    null);
+
+                rook.MarkAsMoved();
+            }
+        }
+
         //--------------------------------------------------
         // Move the selected piece
         //--------------------------------------------------
