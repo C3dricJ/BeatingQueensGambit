@@ -1,6 +1,8 @@
 using BeatingQueensGambit.Core.Enums;
 using BeatingQueensGambit.Core.Models;
 using BeatingQueensGambit.Core.Board;
+using BeatingQueensGambit.Core.Rules;
+using BeatingQueensGambit.Core.Game;
 
 namespace BeatingQueensGambit.Core.Pieces;
 
@@ -78,6 +80,23 @@ public class Pawn : Piece
         if (board.HasEnemyPiece(captureRight, Color))
         {
             legalMoves.Add(captureRight);
+        }
+
+        //------------------------------
+        // En Passant
+        //------------------------------
+
+        if (board.Game != null)
+        {
+            var enPassantSquare =
+                EnPassant.GetEnPassantCaptureSquare(
+                    board.Game,
+                    currentPosition);
+
+            if (enPassantSquare != null)
+            {
+                legalMoves.Add(enPassantSquare);
+            }
         }
 
         return legalMoves;

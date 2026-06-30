@@ -18,6 +18,8 @@ public class ChessGame
     {
         Board = new ChessBoard();
 
+        Board.Game = this;
+
         BoardInitializer.InitializeStandardBoard(Board);
 
         CurrentTurn = PieceColor.White;

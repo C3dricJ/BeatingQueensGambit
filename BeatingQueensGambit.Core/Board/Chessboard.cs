@@ -2,6 +2,7 @@ using BeatingQueensGambit.Core.Pieces;
 using BeatingQueensGambit.Core.Models;
 using BeatingQueensGambit.Core.Enums;
 using BeatingQueensGambit.Core.Moves;
+using BeatingQueensGambit.Core.Game;
 using System.Collections.Generic;
 
 namespace BeatingQueensGambit.Core.Board;
@@ -11,7 +12,9 @@ namespace BeatingQueensGambit.Core.Board;
 /// </summary>
 public class ChessBoard
 {
+    public ChessGame? Game { get; set; }
     public Piece?[,] Squares { get; } = new Piece?[8,8];
+
     public Piece? GetPiece(Position position)
     {
         return Squares[position.Row, position.Column];
