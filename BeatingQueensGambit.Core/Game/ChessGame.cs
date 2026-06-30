@@ -2,6 +2,7 @@ using BeatingQueensGambit.Core.Board;
 using BeatingQueensGambit.Core.Enums;
 using BeatingQueensGambit.Core.Moves;
 using BeatingQueensGambit.Core.Pieces;
+using System.Linq;
 
 namespace BeatingQueensGambit.Core.Game;
 
@@ -34,6 +35,19 @@ public class ChessGame
         {
             throw new InvalidOperationException(
                 "It is not that player's turn.");
+        }
+
+        var legalMoves =
+        piece.GetLegalMoves(Board, move.From);
+
+        bool isLegal =
+        legalMoves.Any(position =>
+        position.Equals(move.To));
+
+        if (!isLegal)
+        {
+            throw new InvalidOperationException(
+            "Illegal move for selected piece.");
         }
 
         Board.ApplyMove(move);

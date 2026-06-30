@@ -3,7 +3,7 @@ namespace BeatingQueensGambit.Core.Models;
 /// <summary>
 /// Represents one square on the chess board.
 /// </summary>
-public class Position
+public class Position : IEquatable<Position>
 {
     public int Row { get; }
 
@@ -15,11 +15,22 @@ public class Position
         Column = column;
     }
 
-    public override string ToString()
+    public bool Equals(Position? other)
     {
-        char file = (char)('a' + Column);
-        int rank = 8 - Row;
+        if (other is null)
+            return false;
 
-        return $"{file}{rank}";
+        return Row == other.Row &&
+               Column == other.Column;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return Equals(obj as Position);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Row, Column);
     }
 }
