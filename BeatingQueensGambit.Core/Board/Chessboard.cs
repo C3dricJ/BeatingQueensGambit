@@ -3,6 +3,7 @@ using BeatingQueensGambit.Core.Models;
 using BeatingQueensGambit.Core.Enums;
 using BeatingQueensGambit.Core.Moves;
 using BeatingQueensGambit.Core.Game;
+using BeatingQueensGambit.Core.Rules;
 using System.Collections.Generic;
 
 namespace BeatingQueensGambit.Core.Board;
@@ -153,6 +154,17 @@ public class ChessBoard
         SetPiece(move.From, null);
 
         piece.MarkAsMoved();
+
+        //--------------------------------------------------
+        // Pawn Promotion
+        //--------------------------------------------------
+
+        if (PawnPromotion.ShouldPromote(piece, move.To))
+        {
+            PawnPromotion.Promote(
+                this,
+                move.To);
+        }
     }
 
         private bool LastMoveWasEnPassant(
