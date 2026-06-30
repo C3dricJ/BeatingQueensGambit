@@ -73,6 +73,27 @@ public class ChessBoard
 
         if (piece == null)
             return;
+        
+            //--------------------------------------------------
+            // Handle En Passant
+            //--------------------------------------------------
+
+            if (piece is Pawn &&
+                Game != null &&
+                LastMoveWasEnPassant(move))
+            {
+                int capturedPawnRow =
+                    move.From.Row;
+
+                Position capturedPawnPosition =
+                    new Position(
+                        capturedPawnRow,
+                        move.To.Column);
+
+                SetPiece(
+                    capturedPawnPosition,
+                    null);
+            }
 
         //--------------------------------------------------
         // Handle Kingside Castling
@@ -132,6 +153,42 @@ public class ChessBoard
         SetPiece(move.From, null);
 
         piece.MarkAsMoved();
+    }
+
+        private bool LastMoveWasEnPassant(
+        Move move)
+    {
+        if (Game?.LastMove == null)
+        {
+            return false;
+        }
+
+        var movingPiece =
+            GetPiece(move.From);
+
+        if (movingPiece is not Pawn)
+        {
+            return false;
+        }
+
+        var lastMovedPiece =
+            GetPiece(Game.LastMove.To);
+
+        if (lastMovedPiece is not Pawn)
+        {
+            return false;
+        }
+
+        if (!Rules.EnPassant.WasDoublePawnMove(
+                lastMovedPiece,
+                Game.LastMove))
+        {
+            return false;
+        }
+
+        return
+            move.To.Column != move.From.Column &&
+            IsEmpty(move.To);
     }
 
     public ChessBoard Clone()

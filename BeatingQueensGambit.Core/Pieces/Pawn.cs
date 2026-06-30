@@ -2,7 +2,6 @@ using BeatingQueensGambit.Core.Enums;
 using BeatingQueensGambit.Core.Models;
 using BeatingQueensGambit.Core.Board;
 using BeatingQueensGambit.Core.Rules;
-using BeatingQueensGambit.Core.Game;
 
 namespace BeatingQueensGambit.Core.Pieces;
 
