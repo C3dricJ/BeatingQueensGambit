@@ -65,17 +65,16 @@ public class ChessBoard
 
     public void ApplyMove(Move move)
     {
-        var movingPiece = GetPiece(move.From);
+        var piece = GetPiece(move.From);
 
-        if (movingPiece == null)
-        {
-            throw new InvalidOperationException(
-            "Cannot move a piece that doesn't exist.");
-        }
+        if (piece == null)
+            return;
 
-        SetPiece(move.To, movingPiece);
+        SetPiece(move.To, piece);
 
         SetPiece(move.From, null);
+
+        piece.MarkAsMoved();
     }
 
     public ChessBoard Clone()

@@ -10,14 +10,23 @@ public abstract class Piece
 
     public PieceType Type { get; }
 
+    public bool HasMoved { get; private set; }
+
     public bool IsWhite => Color == PieceColor.White;
 
     public bool IsBlack => Color == PieceColor.Black;
 
-    protected Piece(PieceColor color, PieceType type)
+    protected Piece(
+        PieceColor color,
+        PieceType type)
     {
         Color = color;
         Type = type;
+    }
+
+    public void MarkAsMoved()
+    {
+        HasMoved = true;
     }
 
     public abstract IEnumerable<Position> GetLegalMoves(
