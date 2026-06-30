@@ -88,6 +88,53 @@ public class King : Piece
         }
     }
 
+    //---------------------------------------------------
+// Queenside Castling
+//---------------------------------------------------
+
+        if (!HasMoved)
+        {
+            Position rookPosition =
+                new Position(currentPosition.Row, 0);
+
+            var rook =
+                board.GetPiece(rookPosition) as Rook;
+
+            if (rook != null &&
+                !rook.HasMoved &&
+                board.IsEmpty(new Position(currentPosition.Row, 1)) &&
+                board.IsEmpty(new Position(currentPosition.Row, 2)) &&
+                board.IsEmpty(new Position(currentPosition.Row, 3)))
+            {
+                bool currentSquareSafe =
+                    !KingSafety.IsSquareUnderAttack(
+                        board,
+                        currentPosition,
+                        Color);
+
+                bool middleSquareSafe =
+                    !KingSafety.IsSquareUnderAttack(
+                        board,
+                        new Position(currentPosition.Row, 3),
+                        Color);
+
+                bool destinationSafe =
+                    !KingSafety.IsSquareUnderAttack(
+                        board,
+                        new Position(currentPosition.Row, 2),
+                        Color);
+
+                if (currentSquareSafe &&
+                    middleSquareSafe &&
+                    destinationSafe)
+                {
+                    legalMoves.Add(
+                        new Position(currentPosition.Row, 2));
+                }
+            }
+        }
+
         return legalMoves;
     }
+
 }
