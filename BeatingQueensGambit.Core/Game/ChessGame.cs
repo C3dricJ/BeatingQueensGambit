@@ -74,4 +74,11 @@ public class ChessGame
             CurrentTurn = PieceColor.White;
         }
     }
+
+    public bool IsCheckmate()
+    {
+        return GameStateEvaluator.IsCheckmate(
+            Board,
+            CurrentTurn);
+    }
 }
