@@ -1,4 +1,7 @@
 using BeatingQueensGambit.Core.Board;
+using BeatingQueensGambit.Core.Enums;
+using BeatingQueensGambit.Core.Moves;
+using BeatingQueensGambit.Core.Pieces;
 
 namespace BeatingQueensGambit.Core.Game;
 
@@ -6,10 +9,42 @@ public class ChessGame
 {
     public ChessBoard Board { get; }
 
+    public PieceColor CurrentTurn { get; private set; }
+
     public ChessGame()
     {
         Board = new ChessBoard();
 
         BoardInitializer.InitializeStandardBoard(Board);
+
+        CurrentTurn = PieceColor.White;
+    }
+
+    public void MakeMove(Move move)
+    {
+        var piece = Board.GetPiece(move.From);
+
+        if (piece == null)
+        {
+            throw new InvalidOperationException(
+                "No piece exists on the starting square.");
+        }
+
+        if (piece.Color != CurrentTurn)
+        {
+            throw new InvalidOperationException(
+                "It is not that player's turn.");
+        }
+
+        Board.ApplyMove(move);
+
+        if(CurrentTurn == PieceColor.White)
+        {
+            CurrentTurn = PieceColor.Black;
+        }
+        else
+        {
+            CurrentTurn = PieceColor.White;
+        }
     }
 }
