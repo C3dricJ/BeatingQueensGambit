@@ -12,6 +12,7 @@ public class ChessGame
     public ChessBoard Board { get; }
 
     public PieceColor CurrentTurn { get; private set; }
+    public Move? LastMove { get; private set; }
 
     public ChessGame()
     {
@@ -64,6 +65,8 @@ public class ChessGame
         }
 
         Board.ApplyMove(move);
+
+        LastMove = move;
 
         if(CurrentTurn == PieceColor.White)
         {
