@@ -2,6 +2,7 @@ using BeatingQueensGambit.Core.Pieces;
 using BeatingQueensGambit.Core.Models;
 using BeatingQueensGambit.Core.Enums;
 using BeatingQueensGambit.Core.Moves;
+using System.Collections.Generic;
 
 namespace BeatingQueensGambit.Core.Board;
 
@@ -118,6 +119,21 @@ public class ChessBoard
         }
 
         return clone;
+    }
+
+
+    public IEnumerable<Position> GetAllOccupiedSquares()
+    {
+        for (int row = 0; row < 8; row++)
+        {
+            for (int column = 0; column < 8; column++)
+            {
+                if (Squares[row, column] != null)
+                {
+                    yield return new Position(row, column);
+                }
+            }
+        }
     }
 
     

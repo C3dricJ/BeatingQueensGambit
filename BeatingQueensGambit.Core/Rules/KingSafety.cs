@@ -67,4 +67,31 @@ public static class KingSafety
 
         return false;
     }
+
+    public static bool IsSquareUnderAttack(
+        ChessBoard board,
+        Position square,
+        PieceColor defendingColor)
+    {
+        foreach (var piecePosition in board.GetAllOccupiedSquares())
+        {
+            var piece = board.GetPiece(piecePosition);
+
+            if (piece == null)
+                continue;
+
+            if (piece.Color == defendingColor)
+                continue;
+
+            var attacks =
+                piece.GetLegalMoves(board, piecePosition);
+
+            if (attacks.Any(position => position.Equals(square)))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }    
 }

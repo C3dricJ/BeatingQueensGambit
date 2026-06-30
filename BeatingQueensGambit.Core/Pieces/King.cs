@@ -2,6 +2,7 @@ using BeatingQueensGambit.Core.Enums;
 using BeatingQueensGambit.Core.Models;
 using BeatingQueensGambit.Core.Board;
 using System.Collections.Generic;
+using BeatingQueensGambit.Core.Rules;
 
 namespace BeatingQueensGambit.Core.Pieces;
 
@@ -46,23 +47,46 @@ public class King : Piece
         // Kingside Castling
         //---------------------------------------------------
 
-        if (!HasMoved)
+    if (!HasMoved)
+    {
+        Position rookPosition =
+            new Position(currentPosition.Row, 7);
+
+        var rook =
+            board.GetPiece(rookPosition) as Rook;
+
+        if (rook != null &&
+            !rook.HasMoved &&
+            board.IsEmpty(new Position(currentPosition.Row, 5)) &&
+            board.IsEmpty(new Position(currentPosition.Row, 6)))
         {
-            Position rookPosition =
-                new Position(currentPosition.Row, 7);
+            bool currentSquareSafe =
+                !KingSafety.IsSquareUnderAttack(
+                    board,
+                    currentPosition,
+                    Color);
 
-            var rook =
-                board.GetPiece(rookPosition) as Rook;
+            bool middleSquareSafe =
+                !KingSafety.IsSquareUnderAttack(
+                    board,
+                    new Position(currentPosition.Row, 5),
+                    Color);
 
-            if (rook != null &&
-                !rook.HasMoved &&
-                board.IsEmpty(new Position(currentPosition.Row, 5)) &&
-                board.IsEmpty(new Position(currentPosition.Row, 6)))
+            bool destinationSafe =
+                !KingSafety.IsSquareUnderAttack(
+                    board,
+                    new Position(currentPosition.Row, 6),
+                    Color);
+
+            if (currentSquareSafe &&
+                middleSquareSafe &&
+                destinationSafe)
             {
                 legalMoves.Add(
                     new Position(currentPosition.Row, 6));
             }
         }
+    }
 
         return legalMoves;
     }
