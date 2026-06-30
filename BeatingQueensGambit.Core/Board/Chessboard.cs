@@ -1,6 +1,7 @@
 using BeatingQueensGambit.Core.Pieces;
 using BeatingQueensGambit.Core.Models;
 using BeatingQueensGambit.Core.Enums;
+using BeatingQueensGambit.Core.Moves;
 
 namespace BeatingQueensGambit.Core.Board;
 
@@ -60,5 +61,20 @@ public class ChessBoard
 
     return piece != null &&
            piece.Color == myColor;
+    }
+
+    public void ApplyMove(Move move)
+    {
+        var movingPiece = GetPiece(move.From);
+
+        if (movingPiece == null)
+        {
+            throw new InvalidOperationException(
+            "Cannot move a piece that doesn't exist.");
+        }
+
+        SetPiece(move.To, movingPiece);
+
+        SetPiece(move.From, null);
     }
 }
