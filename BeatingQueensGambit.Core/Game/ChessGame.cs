@@ -81,4 +81,11 @@ public class ChessGame
             Board,
             CurrentTurn);
     }
+
+    public bool IsStalemate()
+    {
+        return GameStateEvaluator.IsStalemate(
+           Board,
+            CurrentTurn);
+    }
 }

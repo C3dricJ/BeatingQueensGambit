@@ -22,4 +22,23 @@ public static class GameStateEvaluator
 
         return legalMoves.Count == 0;
     }
+
+    public static bool IsStalemate(
+    ChessBoard board,
+    PieceColor player)
+    {
+        if (KingSafety.IsKingInCheck(
+            board,
+            player))
+        {
+            return false;
+        }
+
+        var legalMoves =
+            MoveGenerator.GenerateLegalMoves(
+            board,
+            player);
+
+        return legalMoves.Count == 0;
+    }
 }
