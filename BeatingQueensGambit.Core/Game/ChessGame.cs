@@ -5,6 +5,7 @@ using BeatingQueensGambit.Core.Pieces;
 using System.Linq;
 using BeatingQueensGambit.Core.Rules;
 using BeatingQueensGambit.Core.History;
+using BeatingQueensGambit.Core.Notation;
 
 namespace BeatingQueensGambit.Core.Game;
 
@@ -87,7 +88,7 @@ public class ChessGame
 
         LastMove = move;
 
-        MoveHistory.Add(
+        var moveRecord =
             new MoveRecord(
                 piece.Type,
                 piece.Color,
@@ -97,7 +98,12 @@ public class ChessGame
                 wasCastleKingside,
                 wasCastleQueenside,
                 false,
-                null));
+                null);
+
+        moveRecord.Notation =
+            ChessNotation.ToNotation(moveRecord);
+
+        MoveHistory.Add(moveRecord);
 
         if(CurrentTurn == PieceColor.White)
         {

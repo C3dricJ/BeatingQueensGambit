@@ -29,6 +29,7 @@ public class MoveRecord
     public bool WasPromotion { get; }
 
     public PieceType? PromotionPiece { get; }
+    public string Notation { get; set; } = "";
 
     public MoveRecord(
         PieceType piece,
