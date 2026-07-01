@@ -9,10 +9,32 @@ namespace BeatingQueensGambit.Tests;
 
 public class MinimaxTests
 {
+    //----------------------------------------------------
+    // Helper
+    //----------------------------------------------------
+
+    private ChessBoard CreateBoard()
+    {
+        var board = new ChessBoard();
+
+        // Every legal chess position must have both kings.
+        board.SetPiece(
+            new Position(7, 4),
+            new King(PieceColor.White));
+
+        board.SetPiece(
+            new Position(0, 4),
+            new King(PieceColor.Black));
+
+        return board;
+    }
+
+    //----------------------------------------------------
+
     [Fact]
     public void EmptyBoardReturnsZero()
     {
-        var board = new ChessBoard();
+        var board = CreateBoard();
 
         int score =
             Minimax.Search(
@@ -22,13 +44,15 @@ public class MinimaxTests
         Assert.Equal(0, score);
     }
 
+    //----------------------------------------------------
+
     [Fact]
     public void WhiteQueenReturnsPositiveScore()
     {
-        var board = new ChessBoard();
+        var board = CreateBoard();
 
         board.SetPiece(
-            new Position(3,3),
+            new Position(3, 3),
             new Queen(PieceColor.White));
 
         int score =
@@ -39,13 +63,15 @@ public class MinimaxTests
         Assert.Equal(900, score);
     }
 
+    //----------------------------------------------------
+
     [Fact]
     public void BlackQueenReturnsNegativeScore()
     {
-        var board = new ChessBoard();
+        var board = CreateBoard();
 
         board.SetPiece(
-            new Position(3,3),
+            new Position(3, 3),
             new Queen(PieceColor.Black));
 
         int score =
@@ -54,5 +80,28 @@ public class MinimaxTests
                 PieceColor.White);
 
         Assert.Equal(-900, score);
+    }
+
+    //----------------------------------------------------
+
+    [Fact]
+    public void WhiteShouldPreferCapturingQueen()
+    {
+        var board = CreateBoard();
+
+        board.SetPiece(
+            new Position(4, 4),
+            new Queen(PieceColor.White));
+
+        board.SetPiece(
+            new Position(4, 6),
+            new Queen(PieceColor.Black));
+
+        int score =
+            Minimax.Search(
+                board,
+                PieceColor.White);
+
+        Assert.True(score >= 900);
     }
 }
