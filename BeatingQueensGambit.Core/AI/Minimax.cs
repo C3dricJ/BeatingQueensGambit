@@ -10,7 +10,9 @@ public static class Minimax
         ChessBoard board,
         int depth,
         bool maximizingPlayer,
-        PieceColor perspective)
+        PieceColor perspective,
+        int alpha = int.MinValue,
+        int beta = int.MaxValue)
     {
         if (depth == 0)
         {
@@ -19,19 +21,19 @@ public static class Minimax
                 perspective);
         }
 
-        PieceColor currentColor =
+        PieceColor currentPlayer =
             maximizingPlayer
-                ? perspective
-                : (perspective == PieceColor.White
-                    ? PieceColor.Black
-                    : PieceColor.White);
+            ? perspective
+            : perspective == PieceColor.White
+                ? PieceColor.Black
+                : PieceColor.White;
 
-        var moves =
+        var legalMoves =
             MoveGenerator.GenerateLegalMoves(
                 board,
-                currentColor);
+                currentPlayer);
 
-        if (moves.Count == 0)
+        if (legalMoves.Count == 0)
         {
             return BoardEvaluator.Evaluate(
                 board,
@@ -40,47 +42,61 @@ public static class Minimax
 
         if (maximizingPlayer)
         {
-            int bestScore = int.MinValue;
+            int value = int.MinValue;
 
-            foreach (var move in moves)
+            foreach (var move in legalMoves)
             {
                 var clone = board.Clone();
 
                 clone.ApplyMove(move);
 
-                int score =
+                value = Math.Max(
+                    value,
                     Search(
                         clone,
                         depth - 1,
                         false,
-                        perspective);
+                        perspective,
+                        alpha,
+                        beta));
 
-                bestScore =
-                    Math.Max(bestScore, score);
+                alpha = Math.Max(alpha, value);
+
+                if (beta <= alpha)
+                {
+                    break;
+                }
             }
 
-            return bestScore;
+            return value;
         }
 
-        int worstScore = int.MaxValue;
+        int minValue = int.MaxValue;
 
-        foreach (var move in moves)
+        foreach (var move in legalMoves)
         {
             var clone = board.Clone();
 
             clone.ApplyMove(move);
 
-            int score =
+            minValue = Math.Min(
+                minValue,
                 Search(
                     clone,
                     depth - 1,
                     true,
-                    perspective);
+                    perspective,
+                    alpha,
+                    beta));
 
-            worstScore =
-                Math.Min(worstScore, score);
+            beta = Math.Min(beta, minValue);
+
+            if (beta <= alpha)
+            {
+                break;
+            }
         }
 
-        return worstScore;
+        return minValue;
     }
 }
