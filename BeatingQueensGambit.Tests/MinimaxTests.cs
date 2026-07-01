@@ -38,8 +38,10 @@ public class MinimaxTests
 
         int score =
             Minimax.Search(
-                board,
-                PieceColor.White);
+            board,
+            1,
+            true,
+            PieceColor.White);
 
         Assert.Equal(0, score);
     }
@@ -57,8 +59,10 @@ public class MinimaxTests
 
         int score =
             Minimax.Search(
-                board,
-                PieceColor.White);
+            board,
+            1,
+            true,
+            PieceColor.White);
 
         Assert.Equal(900, score);
     }
@@ -76,8 +80,10 @@ public class MinimaxTests
 
         int score =
             Minimax.Search(
-                board,
-                PieceColor.White);
+            board,
+            1,
+            true,
+            PieceColor.White);
 
         Assert.Equal(-900, score);
     }
@@ -99,8 +105,10 @@ public class MinimaxTests
 
         int score =
             Minimax.Search(
-                board,
-                PieceColor.White);
+            board,
+            1,
+            true,
+            PieceColor.White);
 
         Assert.True(score >= 900);
     }
