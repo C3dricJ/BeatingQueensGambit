@@ -4,6 +4,7 @@ using BeatingQueensGambit.Core.Moves;
 using BeatingQueensGambit.Core.Pieces;
 using System.Linq;
 using BeatingQueensGambit.Core.Rules;
+using BeatingQueensGambit.Core.History;
 
 namespace BeatingQueensGambit.Core.Game;
 
@@ -13,6 +14,9 @@ public class ChessGame
 
     public PieceColor CurrentTurn { get; private set; }
     public Move? LastMove { get; private set; }
+
+    public List<MoveRecord> MoveHistory { get; }
+    = new();
 
     public ChessGame()
     {
@@ -28,6 +32,19 @@ public class ChessGame
     public void MakeMove(Move move)
     {
         var piece = Board.GetPiece(move.From);
+
+        bool wasCapture =
+            Board.GetPiece(move.To) != null;
+
+        bool wasCastleKingside =
+            piece is King &&
+            move.From.Column == 4 &&
+            move.To.Column == 6;
+
+        bool wasCastleQueenside =
+            piece is King &&
+            move.From.Column == 4 &&
+            move.To.Column == 2;
 
         if (piece == null)
         {
@@ -69,6 +86,18 @@ public class ChessGame
         Board.ApplyMove(move);
 
         LastMove = move;
+
+        MoveHistory.Add(
+            new MoveRecord(
+                piece.Type,
+                piece.Color,
+                move.From,
+                move.To,
+                wasCapture,
+                wasCastleKingside,
+                wasCastleQueenside,
+                false,
+                null));
 
         if(CurrentTurn == PieceColor.White)
         {
