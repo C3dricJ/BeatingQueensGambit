@@ -1,7 +1,4 @@
 using Avalonia.Media;
-using BeatingQueensGambit.Core.Board;
-using BeatingQueensGambit.Core.Enums;
-using BeatingQueensGambit.Core.Models;
 using BeatingQueensGambit.Core.Pieces;
 
 namespace BeatingQueensGambit.UI.ViewModels;
@@ -12,49 +9,77 @@ public class SquareViewModel
 
     public int Column { get; }
 
-    public IBrush SquareColor =>
-        (Row + Column) % 2 == 0
-            ? Brushes.Bisque
-            : Brushes.SaddleBrown;
+    public Piece? Piece { get; }
 
     public string PieceSymbol { get; }
+
+    public IBrush SquareColor { get; }
 
     public SquareViewModel(
         int row,
         int column,
-        ChessBoard board)
+        Piece? piece)
     {
         Row = row;
         Column = column;
 
-        var piece =
-            board.GetPiece(
-                new Position(row, column));
+        Piece = piece;
 
         PieceSymbol =
             GetUnicodePiece(piece);
+
+        bool light =
+            (row + column) % 2 == 0;
+
+        SquareColor =
+            light
+            ? Brushes.Bisque
+            : Brushes.SaddleBrown;
     }
 
-    private static string GetUnicodePiece(Piece? piece)
+    private static string GetUnicodePiece(
+        Piece? piece)
     {
         if (piece == null)
             return "";
 
         return piece switch
         {
-            King k when k.Color == PieceColor.White => "♔",
-            Queen q when q.Color == PieceColor.White => "♕",
-            Rook r when r.Color == PieceColor.White => "♖",
-            Bishop b when b.Color == PieceColor.White => "♗",
-            Knight n when n.Color == PieceColor.White => "♘",
-            Pawn p when p.Color == PieceColor.White => "♙",
+            King king =>
+                king.Color ==
+                Core.Enums.PieceColor.White
+                ? "♔"
+                : "♚",
 
-            King k when k.Color == PieceColor.Black => "♚",
-            Queen q when q.Color == PieceColor.Black => "♛",
-            Rook r when r.Color == PieceColor.Black => "♜",
-            Bishop b when b.Color == PieceColor.Black => "♝",
-            Knight n when n.Color == PieceColor.Black => "♞",
-            Pawn p when p.Color == PieceColor.Black => "♟",
+            Queen queen =>
+                queen.Color ==
+                Core.Enums.PieceColor.White
+                ? "♕"
+                : "♛",
+
+            Rook rook =>
+                rook.Color ==
+                Core.Enums.PieceColor.White
+                ? "♖"
+                : "♜",
+
+            Bishop bishop =>
+                bishop.Color ==
+                Core.Enums.PieceColor.White
+                ? "♗"
+                : "♝",
+
+            Knight knight =>
+                knight.Color ==
+                Core.Enums.PieceColor.White
+                ? "♘"
+                : "♞",
+
+            Pawn pawn =>
+                pawn.Color ==
+                Core.Enums.PieceColor.White
+                ? "♙"
+                : "♟",
 
             _ => ""
         };
