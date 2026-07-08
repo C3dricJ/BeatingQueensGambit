@@ -20,7 +20,9 @@
             Grid.Column="0"
             Margin="10"
             BorderBrush="#303030"
-            BorderThickness="1">
+            BorderThickness="2"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
 
             <ItemsControl ItemsSource="{Binding Squares}">
 
@@ -40,29 +42,20 @@
 
                     <DataTemplate x:DataType="viewModels:SquareViewModel">
 
-                        <Button
-                            Padding="0"
-                            Margin="-1"
-                            BorderThickness="0"
-                            Background="Transparent"
-                            HorizontalContentAlignment="Stretch"
-                            VerticalContentAlignment="Stretch">
+                        <Border
+                            Background="{Binding SquareColor}"
+                            Width="100"
+                            Height="100">
 
-                            <Border
-                                CornerRadius="0"
-                                Background="{Binding SquareColor}">
+                            <Image
+                                Width="82"
+                                Height="82"
+                                Stretch="Uniform"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Source="{Binding PieceImage}" />
 
-                                <Image
-                                    Width="80"
-                                    Height="80"
-                                    Stretch="Uniform"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Source="{Binding PieceImage}" />
-
-                            </Border>
-
-                        </Button>
+                        </Border>
 
                     </DataTemplate>
 
