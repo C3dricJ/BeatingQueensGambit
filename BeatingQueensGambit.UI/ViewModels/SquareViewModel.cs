@@ -1,19 +1,63 @@
+using System;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using BeatingQueensGambit.Core.Enums;
+using BeatingQueensGambit.Core.Models;
 using BeatingQueensGambit.Core.Pieces;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BeatingQueensGambit.UI.ViewModels;
 
-public class SquareViewModel
+public partial class SquareViewModel : ObservableObject
 {
     public int Row { get; }
 
     public int Column { get; }
 
-    public Piece? Piece { get; }
+    public Position Position { get; }
 
-    public string PieceSymbol { get; }
+    public Piece? Piece { get; private set; }
 
-    public IBrush SquareColor { get; }
+    [ObservableProperty]
+    private bool isSelected;
+
+    public Bitmap? PieceImage
+    {
+        get
+        {
+            if (Piece == null)
+                return null;
+
+            string color =
+                Piece.Color == PieceColor.White
+                    ? "white"
+                    : "black";
+
+            string pieceName = Piece switch
+            {
+                King => "king",
+                Queen => "queen",
+                Rook => "rook",
+                Bishop => "bishop",
+                Knight => "knight",
+                Pawn => "pawn",
+                _ => ""
+            };
+
+            var uri = new Uri(
+                $"avares://BeatingQueensGambit.UI/Assets/Pieces/{color}_{pieceName}.png");
+
+            return new Bitmap(
+                Avalonia.Platform.AssetLoader.Open(uri));
+        }
+    }
+
+    public IBrush SquareColor =>
+        IsSelected
+            ? Brushes.Gold
+            : ((Row + Column) % 2 == 0
+                ? Brushes.Bisque
+                : Brushes.SaddleBrown);
 
     public SquareViewModel(
         int row,
@@ -22,66 +66,26 @@ public class SquareViewModel
     {
         Row = row;
         Column = column;
-
+        Position = new Position(row, column);
         Piece = piece;
-
-        PieceSymbol =
-            GetUnicodePiece(piece);
-
-        bool light =
-            (row + column) % 2 == 0;
-
-        SquareColor =
-            light
-            ? Brushes.Bisque
-            : Brushes.SaddleBrown;
     }
 
-    private static string GetUnicodePiece(
-        Piece? piece)
+    public void SetPiece(Piece? piece)
     {
-        if (piece == null)
-            return "";
+        Piece = piece;
 
-        return piece switch
-        {
-            King king =>
-                king.Color ==
-                Core.Enums.PieceColor.White
-                ? "♔"
-                : "♚",
+        OnPropertyChanged(nameof(PieceImage));
+    }
 
-            Queen queen =>
-                queen.Color ==
-                Core.Enums.PieceColor.White
-                ? "♕"
-                : "♛",
+    public void Select()
+    {
+        IsSelected = true;
+        OnPropertyChanged(nameof(SquareColor));
+    }
 
-            Rook rook =>
-                rook.Color ==
-                Core.Enums.PieceColor.White
-                ? "♖"
-                : "♜",
-
-            Bishop bishop =>
-                bishop.Color ==
-                Core.Enums.PieceColor.White
-                ? "♗"
-                : "♝",
-
-            Knight knight =>
-                knight.Color ==
-                Core.Enums.PieceColor.White
-                ? "♘"
-                : "♞",
-
-            Pawn pawn =>
-                pawn.Color ==
-                Core.Enums.PieceColor.White
-                ? "♙"
-                : "♟",
-
-            _ => ""
-        };
+    public void Deselect()
+    {
+        IsSelected = false;
+        OnPropertyChanged(nameof(SquareColor));
     }
 }

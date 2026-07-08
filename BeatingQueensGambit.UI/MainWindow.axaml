@@ -2,18 +2,28 @@
     x:Class="BeatingQueensGambit.UI.MainWindow"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:BeatingQueensGambit.UI.ViewModels"
     x:DataType="viewModels:ChessViewModel"
-    mc:Ignorable="d"
-    Width="820"
-    Height="820"
+    Width="1050"
+    Height="900"
     Title="Beating Queen's Gambit">
 
-    <Grid>
+<Grid
+    ColumnDefinitions="820,*"
+    RowDefinitions="*">
 
-        <ItemsControl ItemsSource="{Binding Squares}">
+    <!-- LEFT SIDE -->
+
+    <Border
+        Grid.Column="0"
+    Margin="15"
+    BorderBrush="Black"
+    BorderThickness="2">
+
+        <ItemsControl 
+        ItemsSource="{Binding Squares}"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch">
 
             <ItemsControl.ItemsPanel>
 
@@ -29,20 +39,29 @@
 
             <ItemsControl.ItemTemplate>
 
-                <DataTemplate x:DataType="viewModels:SquareViewModel">
+                <DataTemplate
+                    x:DataType="viewModels:SquareViewModel">
 
-                    <Border
-                        Width="100"
-                        Height="100"
-                        Background="{Binding SquareColor}">
+                    <Button
+                        Padding="0"
+                        BorderThickness="0"
+                        Background="Transparent">
 
-                        <TextBlock
-                            Text="{Binding PieceSymbol}"
-                            FontSize="54"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"/>
+                        <Border
+    Background="{Binding SquareColor}"
+    Margin="0">
 
-                    </Border>
+    <Image
+        Width="70"
+        Height="70"
+        Source="{Binding PieceImage}"
+        Stretch="Uniform"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"/>
+
+</Border>
+
+                    </Button>
 
                 </DataTemplate>
 
@@ -50,6 +69,77 @@
 
         </ItemsControl>
 
-    </Grid>
+    </Border>
+
+    <!-- RIGHT PANEL -->
+
+    <StackPanel
+        Grid.Column="1"
+        Margin="20"
+        Spacing="12">
+
+        <TextBlock
+            FontSize="28"
+            FontWeight="Bold"
+            Text="Beating Queen's Gambit"/>
+
+        <Separator/>
+
+        <TextBlock
+            FontSize="18"
+            Text="Current Turn"/>
+
+        <Border
+            Padding="10"
+            Background="#2B2B2B">
+
+            <TextBlock
+                FontSize="22"
+                Foreground="White"
+                Text="Black"/>
+
+        </Border>
+
+        <Separator/>
+
+        <TextBlock
+            FontSize="18"
+            Text="Selected Square"/>
+
+        <Border
+            Padding="10"
+            Background="#2B2B2B">
+
+            <TextBlock
+                Foreground="White"
+                Text="None"/>
+
+        </Border>
+
+        <Separator/>
+
+        <TextBlock
+            FontSize="18"
+            Text="Last Move"/>
+
+        <Border
+            Padding="10"
+            Background="#2B2B2B">
+
+            <TextBlock
+                Foreground="White"
+                Text="None"/>
+
+        </Border>
+
+        <Separator/>
+
+        <Button
+            Height="50"
+            Content="Restart Game"/>
+
+    </StackPanel>
+
+</Grid>
 
 </Window>

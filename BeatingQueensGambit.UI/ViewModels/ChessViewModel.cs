@@ -1,7 +1,7 @@
+using System.Linq;
 using System.Collections.ObjectModel;
 using BeatingQueensGambit.Core.Game;
 using BeatingQueensGambit.Core.Models;
-using BeatingQueensGambit.Core.Pieces;
 
 namespace BeatingQueensGambit.UI.ViewModels;
 
@@ -10,6 +10,8 @@ public class ChessViewModel
     public ObservableCollection<SquareViewModel> Squares { get; }
 
     private readonly ChessGame _game;
+
+    private SquareViewModel? _selectedSquare;
 
     public ChessViewModel()
     {
@@ -28,10 +30,9 @@ public class ChessViewModel
         {
             for (int column = 0; column < 8; column++)
             {
-                var position = new Position(row, column);
-
-                Piece? piece =
-                    _game.Board.GetPiece(position);
+                var piece =
+                    _game.Board.GetPiece(
+                        new Position(row, column));
 
                 Squares.Add(
                     new SquareViewModel(
@@ -40,5 +41,24 @@ public class ChessViewModel
                         piece));
             }
         }
+    }
+
+    public void SelectSquare(SquareViewModel square)
+    {
+        if (_selectedSquare != null)
+        {
+            _selectedSquare.Deselect();
+        }
+
+        _selectedSquare = square;
+
+        _selectedSquare.Select();
+    }
+
+    public SquareViewModel? GetSquare(Position position)
+    {
+        return Squares.FirstOrDefault(s =>
+            s.Row == position.Row &&
+            s.Column == position.Column);
     }
 }
