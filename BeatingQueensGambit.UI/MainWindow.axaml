@@ -16,54 +16,59 @@
         <!-- Chess Board -->
         <!-- ========================= -->
 
-        <Border
-            Grid.Column="0"
-            Margin="10"
-            BorderBrush="#303030"
-            BorderThickness="2"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top">
+    <Border
+        Grid.Column="0"
+        Width="800"
+        Height="800"
+        Margin="20"
+        BorderBrush="#2E2E2E"
+        BorderThickness="2"
+        CornerRadius="6"
+        ClipToBounds="True"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top">
 
-            <ItemsControl ItemsSource="{Binding Squares}">
+        <ItemsControl ItemsSource="{Binding Squares}">
 
-                <ItemsControl.ItemsPanel>
+            <ItemsControl.ItemsPanel>
 
-                    <ItemsPanelTemplate>
+                <ItemsPanelTemplate>
 
-                        <UniformGrid
-                            Rows="8"
-                            Columns="8"/>
+                    <UniformGrid
+                        Rows="8"
+                        Columns="8"/>
 
-                    </ItemsPanelTemplate>
+                </ItemsPanelTemplate>
 
-                </ItemsControl.ItemsPanel>
+            </ItemsControl.ItemsPanel>
 
-                <ItemsControl.ItemTemplate>
+            <ItemsControl.ItemTemplate>
 
-                    <DataTemplate x:DataType="viewModels:SquareViewModel">
+                <DataTemplate
+                    x:DataType="viewModels:SquareViewModel">
 
-                        <Border
-                            Background="{Binding SquareColor}"
-                            Width="100"
-                            Height="100">
+                    <Border
+                        Width="100"
+                        Height="100"
+                        Background="{Binding SquareColor}">
 
-                            <Image
-                                Width="82"
-                                Height="82"
-                                Stretch="Uniform"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Source="{Binding PieceImage}" />
+                        <Image
+                            Width="72"
+                            Height="72"
+                            Source="{Binding PieceImage}"
+                            Stretch="Uniform"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
 
-                        </Border>
+                    </Border>
 
-                    </DataTemplate>
+                </DataTemplate>
 
-                </ItemsControl.ItemTemplate>
+            </ItemsControl.ItemTemplate>
 
-            </ItemsControl>
+        </ItemsControl>
 
-        </Border>
+    </Border>
 
         <!-- ========================= -->
         <!-- Side Panel -->
