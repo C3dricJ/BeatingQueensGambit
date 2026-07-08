@@ -53,11 +53,11 @@ public partial class SquareViewModel : ObservableObject
     }
 
     public IBrush SquareColor =>
-        IsSelected
-            ? Brushes.Gold
-            : ((Row + Column) % 2 == 0
-                ? Brushes.Bisque
-                : Brushes.SaddleBrown);
+    IsSelected
+        ? Brushes.Gold
+        : ((Row + Column) % 2 == 0
+            ? new SolidColorBrush(Color.Parse("#F0D9B5"))
+            : new SolidColorBrush(Color.Parse("#B58863")));
 
     public SquareViewModel(
         int row,

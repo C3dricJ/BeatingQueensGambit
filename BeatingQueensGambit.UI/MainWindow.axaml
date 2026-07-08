@@ -8,138 +8,146 @@
     Height="900"
     Title="Beating Queen's Gambit">
 
-<Grid
-    ColumnDefinitions="820,*"
-    RowDefinitions="*">
+    <Grid
+        ColumnDefinitions="850,*"
+        RowDefinitions="*">
 
-    <!-- LEFT SIDE -->
-
-    <Border
-        Grid.Column="0"
-    Margin="15"
-    BorderBrush="Black"
-    BorderThickness="2">
-
-        <ItemsControl 
-        ItemsSource="{Binding Squares}"
-        HorizontalAlignment="Stretch"
-        VerticalAlignment="Stretch">
-
-            <ItemsControl.ItemsPanel>
-
-                <ItemsPanelTemplate>
-
-                    <UniformGrid
-                        Rows="8"
-                        Columns="8"/>
-
-                </ItemsPanelTemplate>
-
-            </ItemsControl.ItemsPanel>
-
-            <ItemsControl.ItemTemplate>
-
-                <DataTemplate
-                    x:DataType="viewModels:SquareViewModel">
-
-                    <Button
-                        Padding="0"
-                        BorderThickness="0"
-                        Background="Transparent">
-
-                        <Border
-    Background="{Binding SquareColor}"
-    Margin="0">
-
-    <Image
-        Width="70"
-        Height="70"
-        Source="{Binding PieceImage}"
-        Stretch="Uniform"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"/>
-
-</Border>
-
-                    </Button>
-
-                </DataTemplate>
-
-            </ItemsControl.ItemTemplate>
-
-        </ItemsControl>
-
-    </Border>
-
-    <!-- RIGHT PANEL -->
-
-    <StackPanel
-        Grid.Column="1"
-        Margin="20"
-        Spacing="12">
-
-        <TextBlock
-            FontSize="28"
-            FontWeight="Bold"
-            Text="Beating Queen's Gambit"/>
-
-        <Separator/>
-
-        <TextBlock
-            FontSize="18"
-            Text="Current Turn"/>
+        <!-- ========================= -->
+        <!-- Chess Board -->
+        <!-- ========================= -->
 
         <Border
-            Padding="10"
-            Background="#2B2B2B">
+            Grid.Column="0"
+            Margin="10"
+            BorderBrush="#404040"
+            BorderThickness="2">
 
-            <TextBlock
-                FontSize="22"
-                Foreground="White"
-                Text="Black"/>
+            <ItemsControl ItemsSource="{Binding Squares}">
+
+                <ItemsControl.ItemsPanel>
+
+                    <ItemsPanelTemplate>
+
+                        <UniformGrid
+                            Rows="8"
+                            Columns="8"/>
+
+                    </ItemsPanelTemplate>
+
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+
+                    <DataTemplate x:DataType="viewModels:SquareViewModel">
+
+                        <Button
+                            Padding="0"
+                            Margin="0"
+                            BorderThickness="0"
+                            Background="Transparent"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch">
+
+                            <Border
+                                Background="{Binding SquareColor}">
+
+                                <Image
+                                    Width="74"
+                                    Height="74"
+                                    Stretch="Uniform"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Source="{Binding PieceImage}" />
+
+                            </Border>
+
+                        </Button>
+
+                    </DataTemplate>
+
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
 
         </Border>
 
-        <Separator/>
+        <!-- ========================= -->
+        <!-- Side Panel -->
+        <!-- ========================= -->
 
-        <TextBlock
-            FontSize="18"
-            Text="Selected Square"/>
-
-        <Border
-            Padding="10"
-            Background="#2B2B2B">
-
-            <TextBlock
-                Foreground="White"
-                Text="None"/>
-
-        </Border>
-
-        <Separator/>
-
-        <TextBlock
-            FontSize="18"
-            Text="Last Move"/>
-
-        <Border
-            Padding="10"
-            Background="#2B2B2B">
+        <StackPanel
+            Grid.Column="1"
+            Margin="20"
+            Spacing="12">
 
             <TextBlock
-                Foreground="White"
-                Text="None"/>
+                FontSize="28"
+                FontWeight="Bold"
+                Text="Beating Queen's Gambit"/>
 
-        </Border>
+            <Separator/>
 
-        <Separator/>
+            <TextBlock
+                FontSize="18"
+                Text="Current Turn"/>
 
-        <Button
-            Height="50"
-            Content="Restart Game"/>
+            <Border
+                Padding="10"
+                CornerRadius="6"
+                Background="#404040">
 
-    </StackPanel>
+                <TextBlock
+                    FontSize="22"
+                    Foreground="White"
+                    Text="Black"/>
 
-</Grid>
+            </Border>
+
+            <Separator/>
+
+            <TextBlock
+                FontSize="18"
+                Text="Selected Square"/>
+
+            <Border
+                Padding="10"
+                CornerRadius="6"
+                Background="#404040">
+
+                <TextBlock
+                    Foreground="White"
+                    Text="None"/>
+
+            </Border>
+
+            <Separator/>
+
+            <TextBlock
+                FontSize="18"
+                Text="Last Move"/>
+
+            <Border
+                Padding="10"
+                CornerRadius="6"
+                Background="#404040">
+
+                <TextBlock
+                    Foreground="White"
+                    Text="None"/>
+
+            </Border>
+
+            <Separator/>
+
+            <Button
+                Width="180"
+                Height="48"
+                FontSize="18"
+                FontWeight="Bold"
+                Content="Restart Game"/>
+
+        </StackPanel>
+
+    </Grid>
 
 </Window>
