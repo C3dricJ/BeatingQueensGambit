@@ -19,8 +19,8 @@
         <Border
             Grid.Column="0"
             Margin="10"
-            BorderBrush="#404040"
-            BorderThickness="2">
+            BorderBrush="#303030"
+            BorderThickness="1">
 
             <ItemsControl ItemsSource="{Binding Squares}">
 
@@ -42,18 +42,19 @@
 
                         <Button
                             Padding="0"
-                            Margin="0"
+                            Margin="-1"
                             BorderThickness="0"
                             Background="Transparent"
                             HorizontalContentAlignment="Stretch"
                             VerticalContentAlignment="Stretch">
 
                             <Border
+                                CornerRadius="0"
                                 Background="{Binding SquareColor}">
 
                                 <Image
-                                    Width="74"
-                                    Height="74"
+                                    Width="80"
+                                    Height="80"
                                     Stretch="Uniform"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
