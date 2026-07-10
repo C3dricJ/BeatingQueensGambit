@@ -18,15 +18,16 @@
 
     <Border
         Grid.Column="0"
-        Width="800"
-        Height="800"
-        Margin="20"
-        BorderBrush="#2E2E2E"
-        BorderThickness="2"
-        CornerRadius="6"
-        ClipToBounds="True"
-        HorizontalAlignment="Left"
-        VerticalAlignment="Top">
+        Width="820"
+        Height="820"
+        Margin="30"
+        Padding="8"
+        BorderBrush="#404040"
+        BorderThickness="3"
+        CornerRadius="8"
+        Background="#252525"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
 
         <ItemsControl ItemsSource="{Binding Squares}">
 
@@ -54,8 +55,8 @@
                         PointerPressed="SquarePressed">
 
                         <Image
-                            Width="72"
-                            Height="72"
+                            Width="66"
+                            Height="66"
                             Source="{Binding PieceImage}"
                             Stretch="Uniform"
                             HorizontalAlignment="Center"
@@ -99,7 +100,8 @@
                 <TextBlock
                     FontSize="22"
                     Foreground="White"
-                    Text="Black"/>
+                    FontWeight="Bold"
+                    Text="{Binding CurrentTurnText}"/>
 
             </Border>
 

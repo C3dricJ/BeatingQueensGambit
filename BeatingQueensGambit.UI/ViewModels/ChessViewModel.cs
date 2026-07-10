@@ -23,6 +23,9 @@ public class ChessViewModel : INotifyPropertyChanged
             ? "None"
             : $"{(char)('A' + _selectedSquare.Column)}{8 - _selectedSquare.Row}";
 
+    public string CurrentTurnText =>
+    _game.CurrentTurn.ToString();
+
     public ChessViewModel()
     {
         _game = new ChessGame();
@@ -122,6 +125,10 @@ public class ChessViewModel : INotifyPropertyChanged
         if (moved)
         {
             RefreshBoard();
+
+            PropertyChanged?.Invoke(
+                this,
+                new PropertyChangedEventArgs(nameof(CurrentTurnText)));
         }
 
         //----------------------------------------------------
