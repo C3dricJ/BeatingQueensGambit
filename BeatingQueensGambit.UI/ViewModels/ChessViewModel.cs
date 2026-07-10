@@ -14,6 +14,8 @@ public class ChessViewModel : INotifyPropertyChanged
 
     private SquareViewModel? _selectedSquare;
 
+    private Position? _selectedPosition;
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     public string SelectedSquareText =>
@@ -52,12 +54,31 @@ public class ChessViewModel : INotifyPropertyChanged
         }
     }
 
+    public void RefreshBoard()
+    {
+        foreach (var square in Squares)
+        {
+            var piece =
+                _game.Board.GetPiece(
+                    new Position(
+                        square.Row,
+                        square.Column));
+
+            square.SetPiece(piece);
+        }
+    }
+
     public void SelectSquare(SquareViewModel square)
     {
         if (_selectedSquare != null)
             _selectedSquare.Deselect();
 
         _selectedSquare = square;
+
+        _selectedPosition =
+        new Position(
+            square.Row,
+            square.Column);
 
         _selectedSquare.Select();
 
