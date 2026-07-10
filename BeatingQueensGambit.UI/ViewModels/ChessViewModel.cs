@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Linq;
 using BeatingQueensGambit.Core.Game;
 using BeatingQueensGambit.Core.Models;
+using System.Collections.Generic;
+
 
 namespace BeatingQueensGambit.UI.ViewModels;
 
@@ -17,6 +19,10 @@ public class ChessViewModel : INotifyPropertyChanged
     private Position? _selectedPosition;
 
     public event PropertyChangedEventHandler? PropertyChanged;
+
+    public IEnumerable<string> MoveHistory =>
+    _game.MoveHistory
+        .Select(m => m.Notation);
 
     public string SelectedSquareText =>
         _selectedSquare == null
@@ -137,6 +143,10 @@ public class ChessViewModel : INotifyPropertyChanged
             PropertyChanged?.Invoke(
                 this,
                 new PropertyChangedEventArgs(nameof(GameStatusText)));
+
+            PropertyChanged?.Invoke(
+                this,
+                new PropertyChangedEventArgs(nameof(MoveHistory)));
         }
 
         
@@ -185,16 +195,18 @@ public class ChessViewModel : INotifyPropertyChanged
     }
 
     public string GameStatusText
-{
-    get
     {
-        if (_game.IsCheckmate())
-            return "Checkmate";
+        get
+        {
+            if (_game.IsCheckmate())
+                return "Checkmate";
 
-        if (_game.IsStalemate())
-            return "Stalemate";
+            if (_game.IsStalemate())
+                return "Stalemate";
 
-        return "Game In Progress";
+            return "Game In Progress";
+        }
     }
-}
+
+    
 }
