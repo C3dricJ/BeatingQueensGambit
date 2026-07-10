@@ -60,13 +60,18 @@ public partial class SquareViewModel : ObservableObject
         get
         {
             if (IsSelected)
-                return Brushes.Gold;
+            {
+                return new SolidColorBrush(
+                    Color.Parse("#FFD54F"));
+            }
 
             if (IsLegalMove)
+            {
                 return new SolidColorBrush(
-                    Color.Parse("#6CB4EE"));
+                    Color.Parse("#81C784"));
+            }
 
-            return ((Row + Column) % 2 == 0)
+            return (Row + Column) % 2 == 0
                 ? new SolidColorBrush(Color.Parse("#F0D9B5"))
                 : new SolidColorBrush(Color.Parse("#B58863"));
         }
@@ -103,12 +108,6 @@ public partial class SquareViewModel : ObservableObject
         OnPropertyChanged(nameof(SquareColor));
     }
 
-    public void Deselect()
-    {
-        IsSelected = false;
-        OnPropertyChanged(nameof(SquareColor));
-    }
-
     public void ShowLegalMove()
     {
         IsLegalMove = true;
@@ -118,6 +117,12 @@ public partial class SquareViewModel : ObservableObject
     public void HideLegalMove()
     {
         IsLegalMove = false;
+        OnPropertyChanged(nameof(SquareColor));
+    }
+
+    public void Deselect()
+    {
+        IsSelected = false;
         OnPropertyChanged(nameof(SquareColor));
     }
 }

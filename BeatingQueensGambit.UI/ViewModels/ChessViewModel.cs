@@ -87,14 +87,18 @@ public class ChessViewModel : INotifyPropertyChanged
             square.HideLegalMove();
         }
 
-        if (_selectedSquare.Row > 0)
-        {
-            var testSquare = GetSquare(
+        var legalMoves =
+            _game.GetLegalMoves(
                 new Position(
-                    _selectedSquare.Row - 1,
-                    _selectedSquare.Column));
+                    square.Row,
+                    square.Column));
 
-            testSquare?.ShowLegalMove();
+        foreach (var move in legalMoves)
+        {
+            var target =
+                GetSquare(move);
+
+            target?.ShowLegalMove();
         }
 
         PropertyChanged?.Invoke(
