@@ -1,11 +1,12 @@
+using System.Linq;
 using BeatingQueensGambit.Core.Board;
 using BeatingQueensGambit.Core.Enums;
-using BeatingQueensGambit.Core.Moves;
-using BeatingQueensGambit.Core.Pieces;
-using System.Linq;
-using BeatingQueensGambit.Core.Rules;
 using BeatingQueensGambit.Core.History;
+using BeatingQueensGambit.Core.Models;
+using BeatingQueensGambit.Core.Moves;
 using BeatingQueensGambit.Core.Notation;
+using BeatingQueensGambit.Core.Pieces;
+using BeatingQueensGambit.Core.Rules;
 
 namespace BeatingQueensGambit.Core.Game;
 
@@ -115,6 +116,33 @@ public class ChessGame
         }
     }
 
+    public List<Position> GetLegalMoves(Position from)
+    {
+        var piece = Board.GetPiece(from);
+
+        if (piece == null)
+        {
+            return new List<Position>();
+        }
+
+        return piece
+            .GetLegalMoves(Board, from)
+            .ToList();
+    }
+
+    public bool TryMove(Position from, Position to)
+    {
+        try
+        {
+            MakeMove(new Move(from, to));
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
     public bool IsCheckmate()
     {
         return GameStateEvaluator.IsCheckmate(
@@ -125,7 +153,9 @@ public class ChessGame
     public bool IsStalemate()
     {
         return GameStateEvaluator.IsStalemate(
-           Board,
+            Board,
             CurrentTurn);
     }
+
+    
 }
