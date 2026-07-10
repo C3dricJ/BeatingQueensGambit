@@ -4,244 +4,157 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:viewModels="clr-namespace:BeatingQueensGambit.UI.ViewModels"
     x:DataType="viewModels:ChessViewModel"
-    Width="1450"
+    Width="1500"
     Height="980"
     Title="Beating Queen's Gambit">
 
-    <Grid
-        ColumnDefinitions="3*,1*">
+    <Grid ColumnDefinitions="3*,1*">
 
-        <!-- ===================================== -->
-        <!-- Chess Board -->
-        <!-- ===================================== -->
+        <!-- ====================================== -->
+        <!-- BOARD AREA -->
+        <!-- ====================================== -->
 
-        <Border
+        <Grid
             Grid.Column="0"
-            Margin="30"
-            Padding="8"
-            Background="#252525"
-            BorderBrush="#404040"
-            BorderThickness="3"
-            CornerRadius="8">
+            Margin="20"
+            RowDefinitions="Auto,*,Auto"
+            ColumnDefinitions="Auto,*,Auto">
 
-            <ItemsControl ItemsSource="{Binding Squares}">
+            <!-- Top Letters -->
 
-                <ItemsControl.ItemsPanel>
+            <UniformGrid
+                Grid.Row="0"
+                Grid.Column="1"
+                Columns="8"
+                Margin="12,0">
 
-                    <ItemsPanelTemplate>
+                <TextBlock Text="A" HorizontalAlignment="Center"/>
+                <TextBlock Text="B" HorizontalAlignment="Center"/>
+                <TextBlock Text="C" HorizontalAlignment="Center"/>
+                <TextBlock Text="D" HorizontalAlignment="Center"/>
+                <TextBlock Text="E" HorizontalAlignment="Center"/>
+                <TextBlock Text="F" HorizontalAlignment="Center"/>
+                <TextBlock Text="G" HorizontalAlignment="Center"/>
+                <TextBlock Text="H" HorizontalAlignment="Center"/>
 
-                        <UniformGrid
-                            Rows="8"
-                            Columns="8"/>
+            </UniformGrid>
 
-                    </ItemsPanelTemplate>
+            <!-- Left Numbers -->
 
-                </ItemsControl.ItemsPanel>
+            <UniformGrid
+                Grid.Row="1"
+                Grid.Column="0"
+                Rows="8">
 
-                <ItemsControl.ItemTemplate>
+                <TextBlock Text="8" VerticalAlignment="Center"/>
+                <TextBlock Text="7" VerticalAlignment="Center"/>
+                <TextBlock Text="6" VerticalAlignment="Center"/>
+                <TextBlock Text="5" VerticalAlignment="Center"/>
+                <TextBlock Text="4" VerticalAlignment="Center"/>
+                <TextBlock Text="3" VerticalAlignment="Center"/>
+                <TextBlock Text="2" VerticalAlignment="Center"/>
+                <TextBlock Text="1" VerticalAlignment="Center"/>
 
-                    <DataTemplate
-                        x:DataType="viewModels:SquareViewModel">
+            </UniformGrid>
 
-                        <Border
-                            Background="{Binding SquareColor}"
-                            PointerPressed="SquarePressed">
+            <!-- Chess Board -->
 
-                            <Image
-                                Margin="10"
-                                Stretch="Uniform"
-                                Source="{Binding PieceImage}"/>
+            <Border
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="8"
+                Padding="8"
+                Background="#252525"
+                BorderBrush="#404040"
+                BorderThickness="3"
+                CornerRadius="8">
 
-                        </Border>
+                <ItemsControl ItemsSource="{Binding Squares}">
 
-                    </DataTemplate>
+                    <ItemsControl.ItemsPanel>
 
-                </ItemsControl.ItemTemplate>
+                        <ItemsPanelTemplate>
 
-            </ItemsControl>
+                            <UniformGrid
+                                Rows="8"
+                                Columns="8"/>
 
-        </Border>
+                        </ItemsPanelTemplate>
 
-        <!-- ===================================== -->
-        <!-- Right Dashboard -->
-        <!-- ===================================== -->
+                    </ItemsControl.ItemsPanel>
 
-        <ScrollViewer Grid.Column="1"
-                      Margin="20">
+                    <ItemsControl.ItemTemplate>
 
-            <StackPanel
-                Spacing="20">
+                        <DataTemplate
+                            x:DataType="viewModels:SquareViewModel">
 
-                <!-- Title -->
+                            <Border
+                                Background="{Binding SquareColor}"
+                                PointerPressed="SquarePressed">
 
-                <TextBlock
-                    FontSize="30"
-                    FontWeight="Bold"
-                    Text="Beating Queen's Gambit"/>
+                                <Image
+                                    Margin="8"
+                                    Stretch="Uniform"
+                                    Source="{Binding PieceImage}"/>
 
-                <!-- ===================== -->
-                <!-- Game Information Card -->
-                <!-- ===================== -->
+                            </Border>
 
-                <Border
-                    Background="#2E2E2E"
-                    CornerRadius="8"
-                    Padding="16">
+                        </DataTemplate>
 
-                    <StackPanel
-                        Spacing="12">
+                    </ItemsControl.ItemTemplate>
 
-                        <TextBlock
-                            FontSize="18"
-                            FontWeight="SemiBold"
-                            Text="Current Turn"/>
+                </ItemsControl>
 
-                        <Border
-                            Background="#404040"
-                            CornerRadius="6"
-                            Padding="10">
+            </Border>
 
-                            <TextBlock
-                                FontSize="22"
-                                FontWeight="Bold"
-                                Foreground="White"
-                                Text="{Binding CurrentTurnText}"/>
+            <!-- Right Numbers -->
 
-                        </Border>
+            <UniformGrid
+                Grid.Row="1"
+                Grid.Column="2"
+                Rows="8">
 
-                        <TextBlock
-                            FontSize="18"
-                            FontWeight="SemiBold"
-                            Text="Game Status"/>
-
-                        <Border
-                            Background="#404040"
-                            CornerRadius="6"
-                            Padding="10">
-
-                            <TextBlock
-                                FontWeight="Bold"
-                                Foreground="White"
-                                Text="{Binding GameStatusText}"/>
-
-                        </Border>
-
-                    </StackPanel>
-
-                </Border>
-
-                <!-- ===================== -->
-                <!-- Move Information -->
-                <!-- ===================== -->
-
-                <Border
-                    Background="#2E2E2E"
-                    CornerRadius="8"
-                    Padding="16">
-
-                    <StackPanel
-                        Spacing="12">
-
-                        <TextBlock
-                            FontSize="18"
-                            FontWeight="SemiBold"
-                            Text="Selected Square"/>
-
-                        <Border
-                            Background="#404040"
-                            CornerRadius="6"
-                            Padding="10">
-
-                            <TextBlock
-                                Foreground="White"
-                                Text="{Binding SelectedSquareText}"/>
-
-                        </Border>
-
-                        <TextBlock
-                            FontSize="18"
-                            FontWeight="SemiBold"
-                            Text="Last Move"/>
-
-                        <Border
-                            Background="#404040"
-                            CornerRadius="6"
-                            Padding="10">
-
-                            <TextBlock
-                                Foreground="White"
-                                Text="{Binding LastMoveText}"/>
-
-                        </Border>
-
-                    </StackPanel>
-
-                </Border>
-
-                <!-- ===================== -->
-                <!-- Move History -->
-                <!-- ===================== -->
-
-                <Border
-                    Background="#2E2E2E"
-                    CornerRadius="8"
-                    Padding="16">
-
-                    <StackPanel>
-
-                        <TextBlock
-                            FontSize="18"
-                            FontWeight="SemiBold"
-                            Margin="0,0,0,10"
-                            Text="Move History"/>
-
-                        <Border
-                            Height="260"
-                            Background="#404040"
-                            CornerRadius="6"
-                            Padding="10">
-
-                            <ScrollViewer>
-
-                                <ItemsControl
-                                    ItemsSource="{Binding MoveHistory}">
-
-                                    <ItemsControl.ItemTemplate>
-
-                                        <DataTemplate>
-
-                                            <TextBlock
-                                                Margin="0,3"
-                                                FontFamily="Consolas"
-                                                FontSize="16"
-                                                Foreground="White"
-                                                Text="{Binding}"/>
-
-                                        </DataTemplate>
-
-                                    </ItemsControl.ItemTemplate>
-
-                                </ItemsControl>
-
-                            </ScrollViewer>
-
-                        </Border>
-
-                    </StackPanel>
-
-                </Border>
-
-                <!-- Restart -->
-
-                <Button
-                    Width="220"
-                    Height="54"
-                    HorizontalAlignment="Center"
-                    FontSize="20"
-                    FontWeight="Bold"
-                    Content="Restart Game"/>
-
-            </StackPanel>
+                <TextBlock Text="8" VerticalAlignment="Center"/>
+                <TextBlock Text="7" VerticalAlignment="Center"/>
+                <TextBlock Text="6" VerticalAlignment="Center"/>
+                <TextBlock Text="5" VerticalAlignment="Center"/>
+                <TextBlock Text="4" VerticalAlignment="Center"/>
+                <TextBlock Text="3" VerticalAlignment="Center"/>
+                <TextBlock Text="2" VerticalAlignment="Center"/>
+                <TextBlock Text="1" VerticalAlignment="Center"/>
+
+            </UniformGrid>
+
+            <!-- Bottom Letters -->
+
+            <UniformGrid
+                Grid.Row="2"
+                Grid.Column="1"
+                Columns="8"
+                Margin="12,0">
+
+                <TextBlock Text="A" HorizontalAlignment="Center"/>
+                <TextBlock Text="B" HorizontalAlignment="Center"/>
+                <TextBlock Text="C" HorizontalAlignment="Center"/>
+                <TextBlock Text="D" HorizontalAlignment="Center"/>
+                <TextBlock Text="E" HorizontalAlignment="Center"/>
+                <TextBlock Text="F" HorizontalAlignment="Center"/>
+                <TextBlock Text="G" HorizontalAlignment="Center"/>
+                <TextBlock Text="H" HorizontalAlignment="Center"/>
+
+            </UniformGrid>
+
+        </Grid>
+
+        <!-- ====================================== -->
+        <!-- KEEP YOUR CURRENT RIGHT DASHBOARD HERE -->
+        <!-- ====================================== -->
+
+        <ScrollViewer
+            Grid.Column="1"
+            Margin="20">
+
+            <!-- Copy your existing dashboard here unchanged -->
 
         </ScrollViewer>
 
