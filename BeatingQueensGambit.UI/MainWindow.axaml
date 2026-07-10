@@ -9,12 +9,11 @@
     Title="Beating Queen's Gambit">
 
     <Grid
-        ColumnDefinitions="3*,1*"
-        RowDefinitions="*">
+        ColumnDefinitions="3*,1*">
 
-        <!-- ========================= -->
+        <!-- ===================================== -->
         <!-- Chess Board -->
-        <!-- ========================= -->
+        <!-- ===================================== -->
 
         <Border
             Grid.Column="0"
@@ -63,148 +62,183 @@
 
         </Border>
 
-        <!-- ========================= -->
-        <!-- Right Panel -->
-        <!-- ========================= -->
+        <!-- ===================================== -->
+        <!-- Right Dashboard -->
+        <!-- ===================================== -->
 
-        <ScrollViewer
-            Grid.Column="1"
-            Margin="20">
+        <ScrollViewer Grid.Column="1"
+                      Margin="20">
 
             <StackPanel
-                Spacing="14">
+                Spacing="20">
+
+                <!-- Title -->
 
                 <TextBlock
-                    FontSize="28"
+                    FontSize="30"
                     FontWeight="Bold"
                     Text="Beating Queen's Gambit"/>
 
-                <Separator/>
-
-                <!-- Current Turn -->
-
-                <TextBlock
-                    FontSize="18"
-                    Text="Current Turn"/>
+                <!-- ===================== -->
+                <!-- Game Information Card -->
+                <!-- ===================== -->
 
                 <Border
-                    Background="#404040"
-                    CornerRadius="6"
-                    Padding="10">
+                    Background="#2E2E2E"
+                    CornerRadius="8"
+                    Padding="16">
 
-                    <TextBlock
-                        FontSize="22"
-                        FontWeight="Bold"
-                        Foreground="White"
-                        Text="{Binding CurrentTurnText}"/>
+                    <StackPanel
+                        Spacing="12">
+
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            Text="Current Turn"/>
+
+                        <Border
+                            Background="#404040"
+                            CornerRadius="6"
+                            Padding="10">
+
+                            <TextBlock
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="{Binding CurrentTurnText}"/>
+
+                        </Border>
+
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            Text="Game Status"/>
+
+                        <Border
+                            Background="#404040"
+                            CornerRadius="6"
+                            Padding="10">
+
+                            <TextBlock
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="{Binding GameStatusText}"/>
+
+                        </Border>
+
+                    </StackPanel>
 
                 </Border>
 
-                <Separator/>
-
-                <!-- Game Status -->
-
-                <TextBlock
-                    FontSize="18"
-                    Text="Game Status"/>
+                <!-- ===================== -->
+                <!-- Move Information -->
+                <!-- ===================== -->
 
                 <Border
-                    Background="#404040"
-                    CornerRadius="6"
-                    Padding="10">
+                    Background="#2E2E2E"
+                    CornerRadius="8"
+                    Padding="16">
 
-                    <TextBlock
-                        FontWeight="Bold"
-                        Foreground="White"
-                        Text="{Binding GameStatusText}"/>
+                    <StackPanel
+                        Spacing="12">
+
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            Text="Selected Square"/>
+
+                        <Border
+                            Background="#404040"
+                            CornerRadius="6"
+                            Padding="10">
+
+                            <TextBlock
+                                Foreground="White"
+                                Text="{Binding SelectedSquareText}"/>
+
+                        </Border>
+
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            Text="Last Move"/>
+
+                        <Border
+                            Background="#404040"
+                            CornerRadius="6"
+                            Padding="10">
+
+                            <TextBlock
+                                Foreground="White"
+                                Text="{Binding LastMoveText}"/>
+
+                        </Border>
+
+                    </StackPanel>
 
                 </Border>
 
-                <Separator/>
-
-                <!-- Selected Square -->
-
-                <TextBlock
-                    FontSize="18"
-                    Text="Selected Square"/>
-
-                <Border
-                    Background="#404040"
-                    CornerRadius="6"
-                    Padding="10">
-
-                    <TextBlock
-                        Foreground="White"
-                        Text="{Binding SelectedSquareText}"/>
-
-                </Border>
-
-                <Separator/>
-
-                <!-- Last Move -->
-
-                <TextBlock
-                    FontSize="18"
-                    Text="Last Move"/>
-
-                <Border
-                    Background="#404040"
-                    CornerRadius="6"
-                    Padding="10">
-
-                    <TextBlock
-                        Foreground="White"
-                        Text="{Binding LastMoveText}"/>
-
-                </Border>
-
-                <Separator/>
-
+                <!-- ===================== -->
                 <!-- Move History -->
-
-                <TextBlock
-                    FontSize="18"
-                    Text="Move History"/>
+                <!-- ===================== -->
 
                 <Border
-                    Background="#404040"
-                    CornerRadius="6"
-                    Padding="8"
-                    Height="250">
+                    Background="#2E2E2E"
+                    CornerRadius="8"
+                    Padding="16">
 
-                    <ScrollViewer>
+                    <StackPanel>
 
-                        <ItemsControl
-                            ItemsSource="{Binding MoveHistory}">
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,10"
+                            Text="Move History"/>
 
-                            <ItemsControl.ItemTemplate>
+                        <Border
+                            Height="260"
+                            Background="#404040"
+                            CornerRadius="6"
+                            Padding="10">
 
-                                <DataTemplate>
+                            <ScrollViewer>
 
-                                    <TextBlock
-                                        Margin="0,3"
-                                        FontSize="16"
-                                        Foreground="White"
-                                        Text="{Binding}"/>
+                                <ItemsControl
+                                    ItemsSource="{Binding MoveHistory}">
 
-                                </DataTemplate>
+                                    <ItemsControl.ItemTemplate>
 
-                            </ItemsControl.ItemTemplate>
+                                        <DataTemplate>
 
-                        </ItemsControl>
+                                            <TextBlock
+                                                Margin="0,3"
+                                                FontFamily="Consolas"
+                                                FontSize="16"
+                                                Foreground="White"
+                                                Text="{Binding}"/>
 
-                    </ScrollViewer>
+                                        </DataTemplate>
+
+                                    </ItemsControl.ItemTemplate>
+
+                                </ItemsControl>
+
+                            </ScrollViewer>
+
+                        </Border>
+
+                    </StackPanel>
 
                 </Border>
 
-                <Separator/>
+                <!-- Restart -->
 
                 <Button
-                    Width="200"
-                    Height="50"
-                    FontSize="18"
-                    FontWeight="Bold"
+                    Width="220"
+                    Height="54"
                     HorizontalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
                     Content="Restart Game"/>
 
             </StackPanel>
