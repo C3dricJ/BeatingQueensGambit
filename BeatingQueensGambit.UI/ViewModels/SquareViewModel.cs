@@ -59,14 +59,21 @@ public partial class SquareViewModel : ObservableObject
             ? new SolidColorBrush(Color.Parse("#F0D9B5"))
             : new SolidColorBrush(Color.Parse("#B58863")));
 
+    public ChessViewModel? Parent { get; }
+
     public SquareViewModel(
         int row,
         int column,
-        Piece? piece)
+        Piece? piece,
+        ChessViewModel parent)
     {
+        Parent = parent;
+
         Row = row;
         Column = column;
+
         Position = new Position(row, column);
+
         Piece = piece;
     }
 

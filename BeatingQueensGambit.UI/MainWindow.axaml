@@ -50,7 +50,8 @@
                     <Border
                         Width="100"
                         Height="100"
-                        Background="{Binding SquareColor}">
+                        Background="{Binding SquareColor}"
+                        PointerPressed="SquarePressed">
 
                         <Image
                             Width="72"
@@ -115,7 +116,7 @@
 
                 <TextBlock
                     Foreground="White"
-                    Text="None"/>
+                    Text="{Binding SelectedSquareText}"/>
 
             </Border>
 

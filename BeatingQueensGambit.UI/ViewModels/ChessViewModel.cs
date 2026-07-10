@@ -1,17 +1,25 @@
-using System.Linq;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using BeatingQueensGambit.Core.Game;
 using BeatingQueensGambit.Core.Models;
 
 namespace BeatingQueensGambit.UI.ViewModels;
 
-public class ChessViewModel
+public class ChessViewModel : INotifyPropertyChanged
 {
     public ObservableCollection<SquareViewModel> Squares { get; }
 
     private readonly ChessGame _game;
 
     private SquareViewModel? _selectedSquare;
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public string SelectedSquareText =>
+        _selectedSquare == null
+            ? "None"
+            : $"{(char)('A' + _selectedSquare.Column)}{8 - _selectedSquare.Row}";
 
     public ChessViewModel()
     {
@@ -38,7 +46,8 @@ public class ChessViewModel
                     new SquareViewModel(
                         row,
                         column,
-                        piece));
+                        piece,
+                        this));
             }
         }
     }
@@ -46,13 +55,15 @@ public class ChessViewModel
     public void SelectSquare(SquareViewModel square)
     {
         if (_selectedSquare != null)
-        {
             _selectedSquare.Deselect();
-        }
 
         _selectedSquare = square;
 
         _selectedSquare.Select();
+
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(SelectedSquareText)));
     }
 
     public SquareViewModel? GetSquare(Position position)

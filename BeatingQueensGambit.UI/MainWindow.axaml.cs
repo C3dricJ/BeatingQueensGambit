@@ -18,7 +18,7 @@ public partial class MainWindow : Window
         if (sender is Border border &&
             border.DataContext is SquareViewModel square)
         {
-            square.Select();
+            square.Parent?.SelectSquare(square);
         }
     }
 }
