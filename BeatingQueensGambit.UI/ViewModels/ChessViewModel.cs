@@ -129,7 +129,13 @@ public class ChessViewModel : INotifyPropertyChanged
             PropertyChanged?.Invoke(
                 this,
                 new PropertyChangedEventArgs(nameof(CurrentTurnText)));
+
+            PropertyChanged?.Invoke(
+                this,
+                new PropertyChangedEventArgs(nameof(LastMoveText)));
         }
+
+        
 
         //----------------------------------------------------
         // Clear UI
@@ -154,5 +160,23 @@ public class ChessViewModel : INotifyPropertyChanged
         return Squares.FirstOrDefault(s =>
             s.Row == position.Row &&
             s.Column == position.Column);
+    }
+
+    public string LastMoveText
+    {
+        get
+        {
+            if (_game.LastMove == null)
+                return "None";
+
+            var move = _game.LastMove;
+
+            return $"{ToSquare(move.From)} → {ToSquare(move.To)}";
+        }
+    }
+
+    private string ToSquare(Position p)
+    {
+        return $"{(char)('A' + p.Column)}{8 - p.Row}";
     }
 }
