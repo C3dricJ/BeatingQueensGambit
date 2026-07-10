@@ -138,6 +138,23 @@
 
             <Separator/>
 
+            <Separator/>
+                <TextBlock
+                    FontSize="18"
+                    Text="Game Status"/>
+
+                <Border
+                    Padding="10"
+                    CornerRadius="6"
+                    Background="#404040">
+
+                    <TextBlock
+                        Foreground="White"
+                        FontWeight="Bold"
+                        Text="{Binding GameStatusText}"/>
+
+                </Border>
+
             <Button
                 Width="180"
                 Height="48"

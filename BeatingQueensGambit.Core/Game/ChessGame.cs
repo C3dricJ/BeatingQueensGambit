@@ -17,6 +17,8 @@ public class ChessGame
     public PieceColor CurrentTurn { get; private set; }
     public Move? LastMove { get; private set; }
 
+    public GameState State { get; private set; }
+
     public List<MoveRecord> MoveHistory { get; }
     = new();
 
@@ -113,7 +115,10 @@ public class ChessGame
         else
         {
             CurrentTurn = PieceColor.White;
+            State = GameState.WaitingForSelection;
         }
+
+        EndTurn();
     }
 
     public List<Position> GetLegalMoves(Position from)
@@ -157,5 +162,18 @@ public class ChessGame
             CurrentTurn);
     }
 
-    
+    public void BeginPieceSelection()
+    {
+        State = GameState.PieceSelected;
+    }
+
+    public void CancelSelection()
+    {
+        State = GameState.WaitingForSelection;
+    }
+
+    public void EndTurn()
+    {
+        State = GameState.WaitingForSelection;
+    }
 }

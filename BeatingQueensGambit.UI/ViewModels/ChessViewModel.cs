@@ -133,6 +133,10 @@ public class ChessViewModel : INotifyPropertyChanged
             PropertyChanged?.Invoke(
                 this,
                 new PropertyChangedEventArgs(nameof(LastMoveText)));
+
+            PropertyChanged?.Invoke(
+                this,
+                new PropertyChangedEventArgs(nameof(GameStatusText)));
         }
 
         
@@ -179,4 +183,18 @@ public class ChessViewModel : INotifyPropertyChanged
     {
         return $"{(char)('A' + p.Column)}{8 - p.Row}";
     }
+
+    public string GameStatusText
+{
+    get
+    {
+        if (_game.IsCheckmate())
+            return "Checkmate";
+
+        if (_game.IsStalemate())
+            return "Stalemate";
+
+        return "Game In Progress";
+    }
+}
 }
