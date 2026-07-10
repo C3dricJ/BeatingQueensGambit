@@ -70,42 +70,76 @@ public class ChessViewModel : INotifyPropertyChanged
 
     public void SelectSquare(SquareViewModel square)
     {
-        if (_selectedSquare != null)
-            _selectedSquare.Deselect();
+        //----------------------------------------------------
+        // FIRST CLICK
+        //----------------------------------------------------
 
-        _selectedSquare = square;
-
-        _selectedPosition =
-        new Position(
-            square.Row,
-            square.Column);
-
-        _selectedSquare.Select();
-
-        foreach (var boardsquare in Squares)
+        if (_selectedPosition == null)
         {
-            square.HideLegalMove();
+            _selectedSquare?.Deselect();
+
+            foreach (var boardSquare in Squares)
+                boardSquare.HideLegalMove();
+
+            _selectedSquare = square;
+
+            _selectedPosition =
+                new Position(square.Row, square.Column);
+
+            square.Select();
+
+            var legalMoves =
+                _game.GetLegalMoves(_selectedPosition);
+
+            foreach (var move in legalMoves)
+            {
+                GetSquare(move)?.ShowLegalMove();
+            }
+
+            PropertyChanged?.Invoke(
+                this,
+                new PropertyChangedEventArgs(nameof(SelectedSquareText)));
+
+            return;
         }
 
-        var legalMoves =
-            _game.GetLegalMoves(
-                new Position(
-                    square.Row,
-                    square.Column));
+        //----------------------------------------------------
+        // SECOND CLICK
+        //----------------------------------------------------
 
-        foreach (var move in legalMoves)
+        Position destination =
+            new Position(square.Row, square.Column);
+
+        bool moved =
+            _game.TryMove(
+                _selectedPosition,
+                destination);
+
+        //----------------------------------------------------
+        // Successful Move
+        //----------------------------------------------------
+
+        if (moved)
         {
-            var target =
-                GetSquare(move);
-
-            target?.ShowLegalMove();
+            RefreshBoard();
         }
+
+        //----------------------------------------------------
+        // Clear UI
+        //----------------------------------------------------
+
+        foreach (var boardSquare in Squares)
+        {
+            boardSquare.Deselect();
+            boardSquare.HideLegalMove();
+        }
+
+        _selectedSquare = null;
+        _selectedPosition = null;
 
         PropertyChanged?.Invoke(
             this,
             new PropertyChangedEventArgs(nameof(SelectedSquareText)));
-
-        
     }
 
     public SquareViewModel? GetSquare(Position position)
