@@ -61,9 +61,26 @@ public class ChessViewModel : INotifyPropertyChanged
 
         _selectedSquare.Select();
 
+        foreach (var boardsquare in Squares)
+        {
+            square.HideLegalMove();
+        }
+
+        if (_selectedSquare.Row > 0)
+        {
+            var testSquare = GetSquare(
+                new Position(
+                    _selectedSquare.Row - 1,
+                    _selectedSquare.Column));
+
+            testSquare?.ShowLegalMove();
+        }
+
         PropertyChanged?.Invoke(
             this,
             new PropertyChangedEventArgs(nameof(SelectedSquareText)));
+
+        
     }
 
     public SquareViewModel? GetSquare(Position position)

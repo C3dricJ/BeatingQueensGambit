@@ -21,6 +21,9 @@ public partial class SquareViewModel : ObservableObject
     [ObservableProperty]
     private bool isSelected;
 
+    [ObservableProperty]
+    private bool isLegalMove;
+
     public Bitmap? PieceImage
     {
         get
@@ -52,12 +55,22 @@ public partial class SquareViewModel : ObservableObject
         }
     }
 
-    public IBrush SquareColor =>
-    IsSelected
-        ? new SolidColorBrush(Color.Parse("#D9B44A"))
-        : ((Row + Column) % 2 == 0
-            ? new SolidColorBrush(Color.Parse("#F0D9B5"))
-            : new SolidColorBrush(Color.Parse("#B58863")));
+    public IBrush SquareColor
+    {
+        get
+        {
+            if (IsSelected)
+                return Brushes.Gold;
+
+            if (IsLegalMove)
+                return new SolidColorBrush(
+                    Color.Parse("#6CB4EE"));
+
+            return ((Row + Column) % 2 == 0)
+                ? new SolidColorBrush(Color.Parse("#F0D9B5"))
+                : new SolidColorBrush(Color.Parse("#B58863"));
+        }
+    }
 
     public ChessViewModel? Parent { get; }
 
@@ -93,6 +106,18 @@ public partial class SquareViewModel : ObservableObject
     public void Deselect()
     {
         IsSelected = false;
+        OnPropertyChanged(nameof(SquareColor));
+    }
+
+    public void ShowLegalMove()
+    {
+        IsLegalMove = true;
+        OnPropertyChanged(nameof(SquareColor));
+    }
+
+    public void HideLegalMove()
+    {
+        IsLegalMove = false;
         OnPropertyChanged(nameof(SquareColor));
     }
 }
