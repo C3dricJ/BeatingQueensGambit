@@ -10,9 +10,9 @@
 
     <Grid ColumnDefinitions="3*,1*">
 
-        <!-- ====================================== -->
+        <!-- ====================================================== -->
         <!-- BOARD AREA -->
-        <!-- ====================================== -->
+        <!-- ====================================================== -->
 
         <Grid
             Grid.Column="0"
@@ -20,40 +20,41 @@
             RowDefinitions="Auto,*,Auto"
             ColumnDefinitions="Auto,*,Auto">
 
-            <!-- Top Letters -->
+            <!-- Top Coordinates -->
 
             <UniformGrid
                 Grid.Row="0"
                 Grid.Column="1"
                 Columns="8"
-                Margin="12,0">
+                Margin="16,0,16,8">
 
-                <TextBlock Text="A" HorizontalAlignment="Center"/>
-                <TextBlock Text="B" HorizontalAlignment="Center"/>
-                <TextBlock Text="C" HorizontalAlignment="Center"/>
-                <TextBlock Text="D" HorizontalAlignment="Center"/>
-                <TextBlock Text="E" HorizontalAlignment="Center"/>
-                <TextBlock Text="F" HorizontalAlignment="Center"/>
-                <TextBlock Text="G" HorizontalAlignment="Center"/>
-                <TextBlock Text="H" HorizontalAlignment="Center"/>
+                <TextBlock Text="A" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="B" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="C" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="D" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="E" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="F" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="G" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="H" HorizontalAlignment="Center" FontSize="22"/>
 
             </UniformGrid>
 
-            <!-- Left Numbers -->
+            <!-- Left Coordinates -->
 
             <UniformGrid
                 Grid.Row="1"
                 Grid.Column="0"
-                Rows="8">
+                Rows="8"
+                Margin="0,10">
 
-                <TextBlock Text="8" VerticalAlignment="Center"/>
-                <TextBlock Text="7" VerticalAlignment="Center"/>
-                <TextBlock Text="6" VerticalAlignment="Center"/>
-                <TextBlock Text="5" VerticalAlignment="Center"/>
-                <TextBlock Text="4" VerticalAlignment="Center"/>
-                <TextBlock Text="3" VerticalAlignment="Center"/>
-                <TextBlock Text="2" VerticalAlignment="Center"/>
-                <TextBlock Text="1" VerticalAlignment="Center"/>
+                <TextBlock Text="8" VerticalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="7" VerticalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="6" VerticalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="5" VerticalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="4" VerticalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="3" VerticalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="2" VerticalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="1" VerticalAlignment="Center" FontSize="22"/>
 
             </UniformGrid>
 
@@ -107,54 +108,213 @@
 
             </Border>
 
-            <!-- Right Numbers -->
+            <!-- Right Coordinates -->
 
             <UniformGrid
                 Grid.Row="1"
                 Grid.Column="2"
-                Rows="8">
+                Rows="8"
+                Margin="0,10">
 
-                <TextBlock Text="8" VerticalAlignment="Center"/>
-                <TextBlock Text="7" VerticalAlignment="Center"/>
-                <TextBlock Text="6" VerticalAlignment="Center"/>
-                <TextBlock Text="5" VerticalAlignment="Center"/>
-                <TextBlock Text="4" VerticalAlignment="Center"/>
-                <TextBlock Text="3" VerticalAlignment="Center"/>
-                <TextBlock Text="2" VerticalAlignment="Center"/>
-                <TextBlock Text="1" VerticalAlignment="Center"/>
+                <TextBlock Text="8" VerticalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="7" VerticalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="6" VerticalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="5" VerticalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="4" VerticalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="3" VerticalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="2" VerticalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="1" VerticalAlignment="Center" FontSize="22"/>
 
             </UniformGrid>
 
-            <!-- Bottom Letters -->
+            <!-- Bottom Coordinates -->
 
             <UniformGrid
                 Grid.Row="2"
                 Grid.Column="1"
                 Columns="8"
-                Margin="12,0">
+                Margin="16,8,16,0">
 
-                <TextBlock Text="A" HorizontalAlignment="Center"/>
-                <TextBlock Text="B" HorizontalAlignment="Center"/>
-                <TextBlock Text="C" HorizontalAlignment="Center"/>
-                <TextBlock Text="D" HorizontalAlignment="Center"/>
-                <TextBlock Text="E" HorizontalAlignment="Center"/>
-                <TextBlock Text="F" HorizontalAlignment="Center"/>
-                <TextBlock Text="G" HorizontalAlignment="Center"/>
-                <TextBlock Text="H" HorizontalAlignment="Center"/>
+                <TextBlock Text="A" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="B" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="C" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="D" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="E" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="F" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="G" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Text="H" HorizontalAlignment="Center" FontSize="22"/>
 
             </UniformGrid>
 
         </Grid>
 
-        <!-- ====================================== -->
-        <!-- KEEP YOUR CURRENT RIGHT DASHBOARD HERE -->
-        <!-- ====================================== -->
+        <!-- ====================================================== -->
+        <!-- RIGHT DASHBOARD -->
+        <!-- ====================================================== -->
 
         <ScrollViewer
             Grid.Column="1"
             Margin="20">
 
-            <!-- Copy your existing dashboard here unchanged -->
+            <StackPanel Spacing="20">
+
+                <TextBlock
+                    FontSize="30"
+                    FontWeight="Bold"
+                    Text="Beating Queen's Gambit"/>
+
+                <!-- Game Information -->
+
+                <Border
+                    Background="#2E2E2E"
+                    CornerRadius="8"
+                    Padding="16">
+
+                    <StackPanel Spacing="12">
+
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            Text="Current Turn"/>
+
+                        <Border
+                            Background="#404040"
+                            CornerRadius="6"
+                            Padding="10">
+
+                            <TextBlock
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="{Binding CurrentTurnText}"/>
+
+                        </Border>
+
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            Text="Game Status"/>
+
+                        <Border
+                            Background="#404040"
+                            CornerRadius="6"
+                            Padding="10">
+
+                            <TextBlock
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="{Binding GameStatusText}"/>
+
+                        </Border>
+
+                    </StackPanel>
+
+                </Border>
+
+                <!-- Move Information -->
+
+                <Border
+                    Background="#2E2E2E"
+                    CornerRadius="8"
+                    Padding="16">
+
+                    <StackPanel Spacing="12">
+
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            Text="Selected Square"/>
+
+                        <Border
+                            Background="#404040"
+                            CornerRadius="6"
+                            Padding="10">
+
+                            <TextBlock
+                                Foreground="White"
+                                Text="{Binding SelectedSquareText}"/>
+
+                        </Border>
+
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            Text="Last Move"/>
+
+                        <Border
+                            Background="#404040"
+                            CornerRadius="6"
+                            Padding="10">
+
+                            <TextBlock
+                                Foreground="White"
+                                Text="{Binding LastMoveText}"/>
+
+                        </Border>
+
+                    </StackPanel>
+
+                </Border>
+
+                <!-- Move History -->
+
+                <Border
+                    Background="#2E2E2E"
+                    CornerRadius="8"
+                    Padding="16">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Margin="0,0,0,10"
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            Text="Move History"/>
+
+                        <Border
+                            Height="260"
+                            Background="#404040"
+                            CornerRadius="6"
+                            Padding="10">
+
+                            <ScrollViewer>
+
+                                <ItemsControl ItemsSource="{Binding MoveHistory}">
+
+                                    <ItemsControl.ItemTemplate>
+
+                                        <DataTemplate>
+
+                                            <TextBlock
+                                                Margin="0,3"
+                                                FontFamily="Consolas"
+                                                FontSize="16"
+                                                Foreground="White"
+                                                Text="{Binding}"/>
+
+                                        </DataTemplate>
+
+                                    </ItemsControl.ItemTemplate>
+
+                                </ItemsControl>
+
+                            </ScrollViewer>
+
+                        </Border>
+
+                    </StackPanel>
+
+                </Border>
+
+                <Button
+                    Width="220"
+                    Height="54"
+                    HorizontalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Content="Restart Game"/>
+
+            </StackPanel>
 
         </ScrollViewer>
 
