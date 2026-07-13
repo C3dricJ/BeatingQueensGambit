@@ -159,14 +159,16 @@
             <StackPanel Spacing="20">
 
                 <TextBlock
-                    FontSize="30"
+                    FontSize="32"
                     FontWeight="Bold"
+                    Foreground="#68604d"
+                    HorizontalAlignment="Center"
                     Text="Beating Queen's Gambit"/>
 
                 <!-- Game Information -->
 
                 <Border
-                    Background="#2E2E2E"
+                    Background="#9CAF88"
                     CornerRadius="8"
                     Padding="16">
 
@@ -174,11 +176,12 @@
 
                         <TextBlock
                             FontSize="18"
-                            FontWeight="SemiBold"
+                            FontWeight="Bold"
+                            Foreground="#68604d"
                             Text="Current Turn"/>
 
                         <Border
-                            Background="#404040"
+                            Background="#323232"
                             CornerRadius="6"
                             Padding="10">
 
@@ -192,11 +195,12 @@
 
                         <TextBlock
                             FontSize="18"
-                            FontWeight="SemiBold"
+                            FontWeight="Bold"
+                            Foreground="#68604d"
                             Text="Game Status"/>
 
                         <Border
-                            Background="#404040"
+                            Background="#323232"
                             CornerRadius="6"
                             Padding="10">
 
@@ -214,7 +218,7 @@
                 <!-- Move Information -->
 
                 <Border
-                    Background="#2E2E2E"
+                    Background="#9CAF88"
                     CornerRadius="8"
                     Padding="16">
 
@@ -222,11 +226,12 @@
 
                         <TextBlock
                             FontSize="18"
-                            FontWeight="SemiBold"
+                            FontWeight="Bold"
+                            Foreground="#68604d"
                             Text="Selected Square"/>
 
                         <Border
-                            Background="#404040"
+                            Background="#323232"
                             CornerRadius="6"
                             Padding="10">
 
@@ -238,11 +243,12 @@
 
                         <TextBlock
                             FontSize="18"
-                            FontWeight="SemiBold"
+                            FontWeight="Bold"
+                            Foreground="#68604d"
                             Text="Last Move"/>
 
                         <Border
-                            Background="#404040"
+                            Background="#323232"
                             CornerRadius="6"
                             Padding="10">
 
@@ -259,7 +265,7 @@
                 <!-- Move History -->
 
                 <Border
-                    Background="#2E2E2E"
+                    Background="#9CAF88"
                     CornerRadius="8"
                     Padding="16">
 
@@ -268,12 +274,13 @@
                         <TextBlock
                             Margin="0,0,0,10"
                             FontSize="18"
-                            FontWeight="SemiBold"
+                            FontWeight="Bold"
+                            Foreground="#68604d"
                             Text="Move History"/>
 
                         <Border
                             Height="260"
-                            Background="#404040"
+                            Background="#323232"
                             CornerRadius="6"
                             Padding="10">
 
@@ -308,10 +315,15 @@
 
                 <Button
                     Width="220"
-                    Height="54"
+                    Height="56"
                     HorizontalAlignment="Center"
                     FontSize="20"
                     FontWeight="Bold"
+                    Background="#C23B3B"
+                    Foreground="White"
+                    BorderBrush="#E35D5D"
+                    BorderThickness="2"
+                    CornerRadius="8"
                     Content="Restart Game"
                     Click="RestartGameClicked"/>
 
