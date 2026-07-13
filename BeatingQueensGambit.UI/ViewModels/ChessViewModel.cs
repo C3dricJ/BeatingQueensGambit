@@ -18,6 +18,10 @@ public class ChessViewModel : INotifyPropertyChanged
 
     private Position? _selectedPosition;
 
+    // NEW
+    private SquareViewModel? _lastMoveFrom;
+    private SquareViewModel? _lastMoveTo;
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     public IEnumerable<string> MoveHistory =>
@@ -147,6 +151,24 @@ public class ChessViewModel : INotifyPropertyChanged
             PropertyChanged?.Invoke(
                 this,
                 new PropertyChangedEventArgs(nameof(MoveHistory)));
+
+            //----------------------------------------------------
+            // Remove previous move highlight
+            //----------------------------------------------------
+
+            _lastMoveFrom?.HideLastMove();
+            _lastMoveTo?.HideLastMove();
+
+            //----------------------------------------------------
+            // Highlight newest move
+            //----------------------------------------------------
+
+            _lastMoveFrom = GetSquare(_selectedPosition);
+
+            _lastMoveTo = GetSquare(destination);
+
+            _lastMoveFrom?.ShowLastMove();
+            _lastMoveTo?.ShowLastMove();
         }
 
         
@@ -216,6 +238,9 @@ public class ChessViewModel : INotifyPropertyChanged
 
         _selectedSquare = null;
         _selectedPosition = null;
+
+        _lastMoveFrom = null;
+        _lastMoveTo = null;
 
         PropertyChanged?.Invoke(
             this,

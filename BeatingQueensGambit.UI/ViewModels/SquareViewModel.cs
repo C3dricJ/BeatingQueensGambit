@@ -18,11 +18,17 @@ public partial class SquareViewModel : ObservableObject
 
     public Piece? Piece { get; private set; }
 
+    public ChessViewModel? Parent { get; }
+
     [ObservableProperty]
     private bool isSelected;
 
     [ObservableProperty]
     private bool isLegalMove;
+
+    // NEW
+    [ObservableProperty]
+    private bool isLastMove;
 
     public Bitmap? PieceImage
     {
@@ -59,25 +65,33 @@ public partial class SquareViewModel : ObservableObject
     {
         get
         {
+            // Selected piece
             if (IsSelected)
             {
                 return new SolidColorBrush(
                     Color.Parse("#FFD54F"));
             }
 
+            // NEW - Last Move Highlight
+            if (IsLastMove)
+            {
+                return new SolidColorBrush(
+                    Color.Parse("#C8D6A3"));
+            }
+
+            // Legal Moves
             if (IsLegalMove)
             {
                 return new SolidColorBrush(
-                    Color.Parse("#81C784"));
+                    Color.Parse("#87A96B"));
             }
 
+            // Normal board colors
             return (Row + Column) % 2 == 0
-                ? new SolidColorBrush(Color.Parse("#F0D9B5"))
-                : new SolidColorBrush(Color.Parse("#B58863"));
+                ? new SolidColorBrush(Color.Parse("#EEEED2"))
+                : new SolidColorBrush(Color.Parse("#769656"));
         }
     }
-
-    public ChessViewModel? Parent { get; }
 
     public SquareViewModel(
         int row,
@@ -108,6 +122,12 @@ public partial class SquareViewModel : ObservableObject
         OnPropertyChanged(nameof(SquareColor));
     }
 
+    public void Deselect()
+    {
+        IsSelected = false;
+        OnPropertyChanged(nameof(SquareColor));
+    }
+
     public void ShowLegalMove()
     {
         IsLegalMove = true;
@@ -120,9 +140,17 @@ public partial class SquareViewModel : ObservableObject
         OnPropertyChanged(nameof(SquareColor));
     }
 
-    public void Deselect()
+    // NEW
+    public void ShowLastMove()
     {
-        IsSelected = false;
+        IsLastMove = true;
+        OnPropertyChanged(nameof(SquareColor));
+    }
+
+    // NEW
+    public void HideLastMove()
+    {
+        IsLastMove = false;
         OnPropertyChanged(nameof(SquareColor));
     }
 }
