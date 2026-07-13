@@ -83,7 +83,7 @@ public partial class SquareViewModel : ObservableObject
             if (IsLegalMove)
             {
                 return new SolidColorBrush(
-                    Color.Parse("#87A96B"));
+                    Color.Parse("#18de22"));
             }
 
             // Normal board colors

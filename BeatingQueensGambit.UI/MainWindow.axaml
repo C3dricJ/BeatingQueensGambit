@@ -8,7 +8,9 @@
     Height="980"
     Title="Beating Queen's Gambit">
 
-    <Grid ColumnDefinitions="3*,1*">
+    <Grid
+    RowDefinitions="*,Auto"
+    ColumnDefinitions="3*,1*">
 
         <!-- ====================================================== -->
         <!-- BOARD AREA -->
@@ -330,6 +332,54 @@
             </StackPanel>
 
         </ScrollViewer>
+
+
+        <!-- ====================================================== -->
+        <!-- STATUS BAR -->
+        <!-- ====================================================== -->
+
+        <Border
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Background="#68604D"
+            Padding="10"
+            BorderBrush="#4D4638"
+            BorderThickness="1,1,1,0">
+
+            <Grid ColumnDefinitions="*,Auto,*">
+
+                <!-- Left -->
+
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    FontWeight="Bold"
+                    FontSize="16"
+                    Foreground="White"
+                    Text="{Binding CurrentTurnText}"/>
+
+                <!-- Center -->
+
+                <TextBlock
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    FontWeight="SemiBold"
+                    FontSize="16"
+                    Foreground="#D9D3C3"
+                    Text="{Binding GameStatusText}"/>
+
+                <!-- Right -->
+
+                <TextBlock
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    FontWeight="SemiBold"
+                    FontSize="16"
+                    Foreground="#D9D3C3"
+                    Text="Beating Queen's Gambit"/>
+
+            </Grid>
+
+        </Border>
 
     </Grid>
 
