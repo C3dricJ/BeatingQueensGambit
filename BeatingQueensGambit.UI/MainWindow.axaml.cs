@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using BeatingQueensGambit.UI.ViewModels;
 
 namespace BeatingQueensGambit.UI;
@@ -13,12 +14,37 @@ public partial class MainWindow : Window
         DataContext = new ChessViewModel();
     }
 
-    private void SquarePressed(object? sender, PointerPressedEventArgs e)
+    //----------------------------------------------------
+    // Called whenever the user clicks a chess square
+    //----------------------------------------------------
+
+    private void SquarePressed(
+        object? sender,
+        PointerPressedEventArgs e)
     {
-        if (sender is Border border &&
-            border.DataContext is SquareViewModel square)
+        if (sender is not Border border)
+            return;
+
+        if (border.DataContext is not SquareViewModel square)
+            return;
+
+        if (DataContext is ChessViewModel vm)
         {
-            square.Parent?.SelectSquare(square);
+            vm.SelectSquare(square);
+        }
+    }
+
+    //----------------------------------------------------
+    // Restart Button
+    //----------------------------------------------------
+
+    private void RestartGameClicked(
+        object? sender,
+        RoutedEventArgs e)
+    {
+        if (DataContext is ChessViewModel vm)
+        {
+            vm.RestartGame();
         }
     }
 }

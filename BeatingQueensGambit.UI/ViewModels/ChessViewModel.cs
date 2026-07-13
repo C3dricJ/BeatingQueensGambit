@@ -208,5 +208,33 @@ public class ChessViewModel : INotifyPropertyChanged
         }
     }
 
-    
+    public void RestartGame()
+    {
+        _game.ResetGame();
+
+        BuildBoard();
+
+        _selectedSquare = null;
+        _selectedPosition = null;
+
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(CurrentTurnText)));
+
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(GameStatusText)));
+
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(LastMoveText)));
+
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(SelectedSquareText)));
+
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(MoveHistory)));
+    }
 }

@@ -312,7 +312,8 @@
                     HorizontalAlignment="Center"
                     FontSize="20"
                     FontWeight="Bold"
-                    Content="Restart Game"/>
+                    Content="Restart Game"
+                    Click="RestartGameClicked"/>
 
             </StackPanel>
 

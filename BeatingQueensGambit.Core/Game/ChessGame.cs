@@ -176,4 +176,39 @@ public class ChessGame
     {
         State = GameState.WaitingForSelection;
     }
+
+    public void ResetGame()
+    {
+        //----------------------------------------------------
+        // Clear the board
+        //----------------------------------------------------
+
+        for (int row = 0; row < 8; row++)
+        {
+            for (int column = 0; column < 8; column++)
+            {
+                Board.SetPiece(
+                    new Position(row, column),
+                    null);
+            }
+        }
+
+        //----------------------------------------------------
+        // Rebuild the starting position
+        //----------------------------------------------------
+
+        BoardInitializer.InitializeStandardBoard(Board);
+
+        //----------------------------------------------------
+        // Reset game state
+        //----------------------------------------------------
+
+        CurrentTurn = PieceColor.White;
+
+        LastMove = null;
+
+        MoveHistory.Clear();
+
+        State = GameState.WaitingForSelection;
+    }
 }
