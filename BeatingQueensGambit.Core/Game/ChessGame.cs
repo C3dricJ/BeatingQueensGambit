@@ -25,6 +25,9 @@ public class ChessGame
     public List<MoveRecord> MoveHistory { get; }
     = new();
 
+    public CapturedPieces CapturedPieces { get; }
+    = new();
+
     public ChessGame()
     {
         Board = new ChessBoard();
@@ -40,8 +43,11 @@ public class ChessGame
     {
         var piece = Board.GetPiece(move.From);
 
-        bool wasCapture =
-            Board.GetPiece(move.To) != null;
+        var capturedPiece =
+                Board.GetPiece(move.To);
+
+            bool wasCapture =
+                capturedPiece != null;
 
         bool wasCastleKingside =
             piece is King &&
@@ -88,6 +94,12 @@ public class ChessGame
         {
             throw new InvalidOperationException(
                "You cannot leave your king in check.");
+
+        }
+
+        if (capturedPiece != null)
+        {
+            CapturedPieces.Add(capturedPiece);
         }
 
         Board.ApplyMove(move);
@@ -110,6 +122,8 @@ public class ChessGame
             ChessNotation.ToNotation(moveRecord);
 
         MoveHistory.Add(moveRecord);
+
+        
 
         if(CurrentTurn == PieceColor.White)
         {
@@ -256,6 +270,8 @@ public class ChessGame
         LastMove = null;
 
         MoveHistory.Clear();
+
+        CapturedPieces.Clear();
 
         StatusMessage = "Game In Progress";
 
