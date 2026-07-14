@@ -217,6 +217,95 @@
 
                 </Border>
 
+                <!-- Captured Pieces -->
+
+                <Border
+                    Background="#9CAF88"
+                    CornerRadius="8"
+                    Padding="16">
+
+                    <StackPanel Spacing="14">
+
+                        <TextBlock
+                            Text="Captured White Pieces"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Foreground="#68604D"/>
+
+                        <Border
+                            Background="#323232"
+                            CornerRadius="6"
+                            Padding="10">
+
+                            <ItemsControl
+                                ItemsSource="{Binding CapturedWhitePieces}">
+
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+
+                                <ItemsControl.ItemTemplate>
+
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            Text="{Binding}"
+                                            FontSize="28"
+                                            Margin="4"
+                                            Foreground="White"/>
+
+                                    </DataTemplate>
+
+                                </ItemsControl.ItemTemplate>
+
+                            </ItemsControl>
+
+                        </Border>
+
+                        <TextBlock
+                            Text="Captured Black Pieces"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Foreground="#68604D"/>
+
+                        <Border
+                            Background="#323232"
+                            CornerRadius="6"
+                            Padding="10">
+
+                            <ItemsControl
+                                ItemsSource="{Binding CapturedBlackPieces}">
+
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+
+                                <ItemsControl.ItemTemplate>
+
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            Text="{Binding}"
+                                            FontSize="28"
+                                            Margin="4"
+                                            Foreground="White"/>
+
+                                    </DataTemplate>
+
+                                </ItemsControl.ItemTemplate>
+
+                            </ItemsControl>
+
+                        </Border>
+
+                    </StackPanel>
+
+                </Border>
+
                 <!-- Move Information -->
 
                 <Border

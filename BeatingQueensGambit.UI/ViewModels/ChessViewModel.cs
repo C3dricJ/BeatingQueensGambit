@@ -28,6 +28,14 @@ public class ChessViewModel : INotifyPropertyChanged
     _game.MoveHistory
         .Select(m => m.Notation);
 
+    public IEnumerable<string> CapturedWhitePieces =>
+    _game.CapturedPieces.WhiteCaptured
+        .Select(p => PieceSymbol(p));
+
+public IEnumerable<string> CapturedBlackPieces =>
+    _game.CapturedPieces.BlackCaptured
+        .Select(p => PieceSymbol(p));
+
     public string SelectedSquareText =>
         _selectedSquare == null
             ? "None"
@@ -152,6 +160,14 @@ public class ChessViewModel : INotifyPropertyChanged
                 this,
                 new PropertyChangedEventArgs(nameof(MoveHistory)));
 
+            PropertyChanged?.Invoke(
+                this,
+                new PropertyChangedEventArgs(nameof(CapturedWhitePieces)));
+
+            PropertyChanged?.Invoke(
+                this,
+                new PropertyChangedEventArgs(nameof(CapturedBlackPieces)));
+
             //----------------------------------------------------
             // Remove previous move highlight
             //----------------------------------------------------
@@ -261,5 +277,28 @@ public class ChessViewModel : INotifyPropertyChanged
         PropertyChanged?.Invoke(
             this,
             new PropertyChangedEventArgs(nameof(MoveHistory)));
+
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(CapturedWhitePieces)));
+
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(CapturedBlackPieces)));
+        
+    }
+
+    private string PieceSymbol(BeatingQueensGambit.Core.Pieces.Piece piece)
+    {
+        return piece switch
+        {
+            BeatingQueensGambit.Core.Pieces.Pawn => "♙",
+            BeatingQueensGambit.Core.Pieces.Knight => "♘",
+            BeatingQueensGambit.Core.Pieces.Bishop => "♗",
+            BeatingQueensGambit.Core.Pieces.Rook => "♖",
+            BeatingQueensGambit.Core.Pieces.Queen => "♕",
+            BeatingQueensGambit.Core.Pieces.King => "♔",
+            _ => ""
+        };
     }
 }
