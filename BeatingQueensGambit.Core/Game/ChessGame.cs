@@ -17,6 +17,9 @@ public class ChessGame
     public PieceColor CurrentTurn { get; private set; }
     public Move? LastMove { get; private set; }
 
+    public string StatusMessage { get; private set; }
+    = "Game In Progress";
+
     public GameState State { get; private set; }
 
     public List<MoveRecord> MoveHistory { get; }
@@ -175,6 +178,51 @@ public class ChessGame
     public void EndTurn()
     {
         State = GameState.WaitingForSelection;
+
+        //----------------------------------------
+        // Checkmate
+        //----------------------------------------
+
+        if (IsCheckmate())
+        {
+            StatusMessage =
+                $"{CurrentTurn} is Checkmated!";
+
+            return;
+        }
+
+        //----------------------------------------
+        // Stalemate
+        //----------------------------------------
+
+        if (IsStalemate())
+        {
+            StatusMessage =
+                "Stalemate";
+
+            return;
+        }
+
+        //----------------------------------------
+        // Check
+        //----------------------------------------
+
+        if (KingSafety.IsKingInCheck(
+            Board,
+            CurrentTurn))
+        {
+            StatusMessage =
+                $"{CurrentTurn} is in Check!";
+
+            return;
+        }
+
+        //----------------------------------------
+        // Normal
+        //----------------------------------------
+
+        StatusMessage =
+            "Game In Progress";
     }
 
     public void ResetGame()
@@ -208,6 +256,8 @@ public class ChessGame
         LastMove = null;
 
         MoveHistory.Clear();
+
+        StatusMessage = "Game In Progress";
 
         State = GameState.WaitingForSelection;
     }
