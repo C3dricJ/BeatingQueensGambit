@@ -5,6 +5,7 @@ using BeatingQueensGambit.Core.Game;
 using BeatingQueensGambit.Core.Models;
 using System.Collections.Generic;
 using BeatingQueensGambit.Core.Rules;
+using System.Timers;
 
 
 namespace BeatingQueensGambit.UI.ViewModels;
@@ -14,6 +15,8 @@ public class ChessViewModel : INotifyPropertyChanged
     public ObservableCollection<SquareViewModel> Squares { get; }
 
     private readonly ChessGame _game;
+
+    private readonly Timer _timer;
 
     private SquareViewModel? _selectedSquare;
 
@@ -52,6 +55,12 @@ public IEnumerable<string> CapturedBlackPieces =>
         Squares = new ObservableCollection<SquareViewModel>();
 
         BuildBoard();
+
+        _timer = new Timer(1000);
+
+        _timer.Elapsed += TimerElapsed;
+
+        _timer.Start();
     }
 
     private void BuildBoard()
@@ -245,6 +254,11 @@ public IEnumerable<string> CapturedBlackPieces =>
         }
     }
 
+    public string WhiteClockText =>
+    _game.Clock.WhiteTime.ToString(@"mm\:ss");
+
+    public string BlackClockText =>
+        _game.Clock.BlackTime.ToString(@"mm\:ss");
 
     public void RestartGame()
     {
@@ -286,6 +300,22 @@ public IEnumerable<string> CapturedBlackPieces =>
             this,
             new PropertyChangedEventArgs(nameof(CapturedBlackPieces)));
         
+    }
+
+    private void TimerElapsed(object? sender, ElapsedEventArgs e)
+    {
+        _game.Clock.Tick();
+
+        Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+        {
+            PropertyChanged?.Invoke(
+                this,
+                new PropertyChangedEventArgs(nameof(WhiteClockText)));
+
+            PropertyChanged?.Invoke(
+                this,
+                new PropertyChangedEventArgs(nameof(BlackClockText)));
+        });
     }
 
     private string PieceSymbol(BeatingQueensGambit.Core.Pieces.Piece piece)
