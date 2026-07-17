@@ -7,6 +7,7 @@ using BeatingQueensGambit.Core.Moves;
 using BeatingQueensGambit.Core.Notation;
 using BeatingQueensGambit.Core.Pieces;
 using BeatingQueensGambit.Core.Rules;
+using BeatingQueensGambit.Core.Clock;
 
 namespace BeatingQueensGambit.Core.Game;
 
@@ -27,6 +28,8 @@ public class ChessGame
 
     public CapturedPieces CapturedPieces { get; }
     = new();
+
+    public ChessClock Clock { get; } = new();
 
     public ChessGame()
     {
@@ -134,6 +137,8 @@ public class ChessGame
             CurrentTurn = PieceColor.White;
             State = GameState.WaitingForSelection;
         }
+
+        Clock.SwitchTurn();
 
         EndTurn();
     }
@@ -273,8 +278,11 @@ public class ChessGame
 
         CapturedPieces.Clear();
 
+        Clock.Reset();
+
         StatusMessage = "Game In Progress";
 
         State = GameState.WaitingForSelection;
+
     }
 }
