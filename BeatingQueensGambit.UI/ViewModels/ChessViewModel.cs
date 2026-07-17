@@ -4,6 +4,7 @@ using System.Linq;
 using BeatingQueensGambit.Core.Game;
 using BeatingQueensGambit.Core.Models;
 using System.Collections.Generic;
+using BeatingQueensGambit.Core.Rules;
 
 
 namespace BeatingQueensGambit.UI.ViewModels;
@@ -156,6 +157,8 @@ public IEnumerable<string> CapturedBlackPieces =>
                 this,
                 new PropertyChangedEventArgs(nameof(GameStatusText)));
 
+            
+
             PropertyChanged?.Invoke(
                 this,
                 new PropertyChangedEventArgs(nameof(MoveHistory)));
@@ -185,6 +188,7 @@ public IEnumerable<string> CapturedBlackPieces =>
 
             _lastMoveFrom?.ShowLastMove();
             _lastMoveTo?.ShowLastMove();
+
         }
 
         
@@ -214,6 +218,7 @@ public IEnumerable<string> CapturedBlackPieces =>
             s.Column == position.Column);
     }
 
+
     public string LastMoveText
     {
         get
@@ -236,15 +241,10 @@ public IEnumerable<string> CapturedBlackPieces =>
     {
         get
         {
-            if (_game.IsCheckmate())
-                return "Checkmate";
-
-            if (_game.IsStalemate())
-                return "Stalemate";
-
-            return "Game In Progress";
+            return _game.StatusMessage;
         }
     }
+
 
     public void RestartGame()
     {

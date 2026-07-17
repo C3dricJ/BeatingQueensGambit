@@ -153,4 +153,5 @@ public partial class SquareViewModel : ObservableObject
         IsLastMove = false;
         OnPropertyChanged(nameof(SquareColor));
     }
+
 }

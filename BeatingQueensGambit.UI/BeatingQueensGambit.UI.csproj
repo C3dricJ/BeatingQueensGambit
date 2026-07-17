@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BeatingQueensGambit.Core\BeatingQueensGambit.Core.csproj" />
     <ProjectReference Include="..\BeatingQueensGambit.Engine\BeatingQueensGambit.Engine.csproj" />
   </ItemGroup>
 
