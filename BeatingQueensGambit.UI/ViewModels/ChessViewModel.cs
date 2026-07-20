@@ -6,6 +6,8 @@ using BeatingQueensGambit.Core.Models;
 using System.Collections.Generic;
 using BeatingQueensGambit.Core.Rules;
 using System.Timers;
+using System.Threading.Tasks;
+using BeatingQueensGambit.Engine.AI;
 
 
 namespace BeatingQueensGambit.UI.ViewModels;
@@ -15,6 +17,8 @@ public class ChessViewModel : INotifyPropertyChanged
     public ObservableCollection<SquareViewModel> Squares { get; }
 
     private readonly ChessGame _game;
+
+    private readonly ChessAI _ai;
 
     private readonly Timer _timer;
 
@@ -51,6 +55,8 @@ public IEnumerable<string> CapturedBlackPieces =>
     public ChessViewModel()
     {
         _game = new ChessGame();
+
+        _ai = new ChessAI();
 
         Squares = new ObservableCollection<SquareViewModel>();
 
@@ -187,6 +193,12 @@ public IEnumerable<string> CapturedBlackPieces =>
             _lastMoveFrom?.HideLastMove();
             _lastMoveTo?.HideLastMove();
 
+            //
+            // Let AI respond
+            //
+
+            _ = MakeAIMove();
+
             //----------------------------------------------------
             // Highlight newest move
             //----------------------------------------------------
@@ -259,6 +271,81 @@ public IEnumerable<string> CapturedBlackPieces =>
 
     public string BlackClockText =>
         _game.Clock.BlackTime.ToString(@"mm\:ss");
+
+
+    private async Task MakeAIMove()
+    {
+        //---------------------------------------------------
+        // Only Black is AI
+        //---------------------------------------------------
+
+        if (_game.CurrentTurn != BeatingQueensGambit.Core.Enums.PieceColor.Black)
+            return;
+
+        //
+        // Simulate AI Thinking
+        //
+
+        await Task.Delay(1000);
+
+        //---------------------------------------------------
+        // Ask AI for move
+        //---------------------------------------------------
+
+        var move = _ai.ChooseMove(_game);
+
+        if (move == null)
+            return;
+
+        //---------------------------------------------------
+        // Execute move
+        //---------------------------------------------------
+
+        _game.MakeMove(move);
+
+        RefreshBoard();
+
+        //---------------------------------------------------
+        // Update labels
+        //---------------------------------------------------
+
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(CurrentTurnText)));
+
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(LastMoveText)));
+
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(GameStatusText)));
+
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(MoveHistory)));
+
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(CapturedWhitePieces)));
+
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(CapturedBlackPieces)));
+
+        //---------------------------------------------------
+        // Highlight AI move
+        //---------------------------------------------------
+
+        _lastMoveFrom?.HideLastMove();
+        _lastMoveTo?.HideLastMove();
+
+        _lastMoveFrom = GetSquare(move.From);
+        _lastMoveTo = GetSquare(move.To);
+
+        _lastMoveFrom?.ShowLastMove();
+        _lastMoveTo?.ShowLastMove();
+    }
 
     public void RestartGame()
     {
