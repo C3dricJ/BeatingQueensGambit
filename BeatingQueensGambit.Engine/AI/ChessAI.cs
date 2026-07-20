@@ -14,25 +14,52 @@ public class ChessAI
 
 public Move? ChooseMove(ChessGame game)
     {
-        var moves = GetAllLegalMoves(game);
+        var legalMoves = GetAllLegalMoves(game);
 
-        if (moves.Count == 0)
+        if (legalMoves.Count == 0)
             return null;
 
-        switch (Difficulty)
+        //--------------------------------------------------
+        // 1. Capture highest-value piece if possible
+        //--------------------------------------------------
+
+        Move? bestCapture = null;
+        int bestScore = -1;
+
+        foreach (var move in legalMoves)
         {
-            case Difficulty.Easy:
-                return RandomMove(moves);
+            var target =
+                game.Board.GetPiece(move.To);
 
-            case Difficulty.Medium:
-                return CaptureMove(game, moves);
+            if (target == null)
+                continue;
 
-            case Difficulty.Hard:
-                return BestMove(game, moves);
+            int value = target switch
+            {
+                BeatingQueensGambit.Core.Pieces.Pawn => 1,
+                BeatingQueensGambit.Core.Pieces.Knight => 3,
+                BeatingQueensGambit.Core.Pieces.Bishop => 3,
+                BeatingQueensGambit.Core.Pieces.Rook => 5,
+                BeatingQueensGambit.Core.Pieces.Queen => 9,
+                BeatingQueensGambit.Core.Pieces.King => 100,
+                _ => 0
+            };
 
-            default:
-                return RandomMove(moves);
+            if (value > bestScore)
+            {
+                bestScore = value;
+                bestCapture = move;
+            }
         }
+
+        if (bestCapture != null)
+            return bestCapture;
+
+        //--------------------------------------------------
+        // 2. Otherwise choose a random move
+        //--------------------------------------------------
+
+        return legalMoves[_random.Next(legalMoves.Count)];
     }
 
     private List<Move> GetAllLegalMoves(ChessGame game)
