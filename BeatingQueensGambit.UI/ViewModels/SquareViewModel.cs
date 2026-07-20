@@ -77,28 +77,50 @@ public partial class SquareViewModel : ObservableObject
     {
         get
         {
-            // Selected piece
+            //------------------------------------------------
+            // Selected Piece
+            //------------------------------------------------
+
             if (IsSelected)
             {
                 return new SolidColorBrush(
                     Color.Parse("#FFD54F"));
             }
 
-            // NEW - Last Move Highlight
+            //------------------------------------------------
+            // KING IN CHECK
+            //------------------------------------------------
+
+            if (IsKingInCheck)
+            {
+                return new SolidColorBrush(
+                    Color.Parse("#E53935"));
+            }
+
+            //------------------------------------------------
+            // Last Move
+            //------------------------------------------------
+
             if (IsLastMove)
             {
                 return new SolidColorBrush(
                     Color.Parse("#C8D6A3"));
             }
 
+            //------------------------------------------------
             // Legal Moves
+            //------------------------------------------------
+
             if (IsLegalMove)
             {
                 return new SolidColorBrush(
-                    Color.Parse("#18de22"));
+                    Color.Parse("#1fbf27"));
             }
 
-            // Normal board colors
+            //------------------------------------------------
+            // Normal Board
+            //------------------------------------------------
+
             return (Row + Column) % 2 == 0
                 ? new SolidColorBrush(Color.Parse("#EEEED2"))
                 : new SolidColorBrush(Color.Parse("#769656"));

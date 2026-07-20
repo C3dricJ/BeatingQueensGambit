@@ -1,0 +1,49 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:BeatingQueensGambit.UI.ViewModels"
+        x:Class="BeatingQueensGambit.UI.Views.StartWindow"
+        x:DataType="vm:StartViewModel"
+        Width="500"
+        Height="550"
+        Title="Beating Queen's Gambit">
+
+    <StackPanel Margin="30"
+                Spacing="20">
+
+        <TextBlock
+            Text="♚ Beating Queen's Gambit ♚"
+            FontSize="30"
+            FontWeight="Bold"
+            HorizontalAlignment="Center"/>
+
+        <TextBlock
+            Text="Always play Black against White"
+            HorizontalAlignment="Center"
+            FontSize="18"/>
+
+        <Separator/>
+
+        <TextBlock
+            Text="Difficulty"
+            FontWeight="Bold"/>
+
+        <ComboBox
+            ItemsSource="{Binding Difficulties}"
+            SelectedItem="{Binding SelectedDifficulty}"/>
+
+        <TextBlock
+            Text="Time Control"
+            FontWeight="Bold"/>
+
+        <ComboBox
+            ItemsSource="{Binding TimeControls}"
+            SelectedItem="{Binding SelectedMinutes}"/>
+
+        <Button
+            Content="Start Game"
+            Height="50"
+            FontSize="18"/>
+
+    </StackPanel>
+
+</Window>
