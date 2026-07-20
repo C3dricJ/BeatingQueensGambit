@@ -167,6 +167,36 @@
                     HorizontalAlignment="Center"
                     Text="Beating Queen's Gambit"/>
 
+                <!-- =============================================== -->
+                <!-- BLACK CLOCK -->
+                <!-- =============================================== -->
+
+                <Border
+                    Background="#323232"
+                    CornerRadius="8"
+                    Padding="16">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="BLACK"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Foreground="#9CAF88"
+                            HorizontalAlignment="Center"/>
+
+                        <TextBlock
+                            Text="{Binding BlackClockText}"
+                            FontSize="42"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            HorizontalAlignment="Center"
+                            Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Border>
+
                 <!-- Game Information -->
 
                 <Border
@@ -403,6 +433,36 @@
                     </StackPanel>
 
                 </Border>
+
+                <!-- =============================================== -->
+<!-- WHITE CLOCK -->
+<!-- =============================================== -->
+
+<Border
+    Background="#323232"
+    CornerRadius="8"
+    Padding="16">
+
+    <StackPanel>
+
+        <TextBlock
+            Text="WHITE"
+            FontSize="18"
+            FontWeight="Bold"
+            Foreground="#9CAF88"
+            HorizontalAlignment="Center"/>
+
+        <TextBlock
+            Text="{Binding WhiteClockText}"
+            FontSize="42"
+            FontWeight="Bold"
+            Foreground="White"
+            HorizontalAlignment="Center"
+            Margin="0,8,0,0"/>
+
+    </StackPanel>
+
+</Border>
 
                 <Button
                     Width="220"
