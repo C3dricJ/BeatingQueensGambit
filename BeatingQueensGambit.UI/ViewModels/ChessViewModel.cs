@@ -56,7 +56,10 @@ public IEnumerable<string> CapturedBlackPieces =>
     {
         _game = new ChessGame();
 
-        _ai = new ChessAI();
+        _ai = new ChessAI
+        {
+            Difficulty = Difficulty.Medium
+        };
 
         Squares = new ObservableCollection<SquareViewModel>();
 

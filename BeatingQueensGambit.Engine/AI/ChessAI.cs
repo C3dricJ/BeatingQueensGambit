@@ -9,16 +9,30 @@ namespace BeatingQueensGambit.Engine.AI;
 
 public class ChessAI
 {
+    public Difficulty Difficulty { get; set; } = Difficulty.Easy;
     private readonly Random _random = new();
 
-    public Move? ChooseMove(ChessGame game)
+public Move? ChooseMove(ChessGame game)
     {
-        var legalMoves = GetAllLegalMoves(game);
+        var moves = GetAllLegalMoves(game);
 
-        if (legalMoves.Count == 0)
+        if (moves.Count == 0)
             return null;
 
-        return legalMoves[_random.Next(legalMoves.Count)];
+        switch (Difficulty)
+        {
+            case Difficulty.Easy:
+                return RandomMove(moves);
+
+            case Difficulty.Medium:
+                return CaptureMove(game, moves);
+
+            case Difficulty.Hard:
+                return BestMove(game, moves);
+
+            default:
+                return RandomMove(moves);
+        }
     }
 
     private List<Move> GetAllLegalMoves(ChessGame game)
@@ -47,5 +61,56 @@ public class ChessAI
         }
 
         return moves;
+    }
+
+    private Move RandomMove(List<Move> moves)
+    {
+        return moves[_random.Next(moves.Count)];
+    }
+
+private Move CaptureMove(
+    ChessGame game,
+    List<Move> moves)
+    {
+        foreach (var move in moves)
+        {
+            if (game.Board.GetPiece(move.To) != null)
+                return move;
+        }
+
+        return RandomMove(moves);
+    }
+
+private Move BestMove(
+    ChessGame game,
+    List<Move> moves)
+    {
+        Move? bestMove = null;
+
+        int bestValue = -1;
+
+        foreach (var move in moves)
+        {
+            var piece =
+                game.Board.GetPiece(move.To);
+
+            int value = piece switch
+            {
+                BeatingQueensGambit.Core.Pieces.Queen => 9,
+                BeatingQueensGambit.Core.Pieces.Rook => 5,
+                BeatingQueensGambit.Core.Pieces.Bishop => 3,
+                BeatingQueensGambit.Core.Pieces.Knight => 3,
+                BeatingQueensGambit.Core.Pieces.Pawn => 1,
+                _ => 0
+            };
+
+            if (value > bestValue)
+            {
+                bestValue = value;
+                bestMove = move;
+            }
+        }
+
+        return bestMove ?? RandomMove(moves);
     }
 }
