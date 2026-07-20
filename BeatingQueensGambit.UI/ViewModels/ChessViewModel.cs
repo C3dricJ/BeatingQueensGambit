@@ -200,6 +200,8 @@ public IEnumerable<string> CapturedBlackPieces =>
             // Let AI respond
             //
 
+            HighlightCheckedKing();
+
             _ = MakeAIMove();
 
             //----------------------------------------------------
@@ -240,6 +242,40 @@ public IEnumerable<string> CapturedBlackPieces =>
         return Squares.FirstOrDefault(s =>
             s.Row == position.Row &&
             s.Column == position.Column);
+    }
+
+    private void ClearCheckHighlights()
+    {
+        foreach (var square in Squares)
+        {
+            square.HideCheck();
+        }
+    }
+
+    private void HighlightCheckedKing()
+    {
+        ClearCheckHighlights();
+
+        //----------------------------------------------------
+        // Find the king whose turn it currently is
+        //----------------------------------------------------
+
+        foreach (var square in Squares)
+        {
+            var piece = _game.Board.GetPiece(
+                new Position(square.Row, square.Column));
+
+            if (piece is BeatingQueensGambit.Core.Pieces.King &&
+                piece.Color == _game.CurrentTurn)
+            {
+                if (_game.StatusMessage.Contains("Check"))
+                {
+                    square.ShowCheck();
+                }
+
+                return;
+            }
+        }
     }
 
 
@@ -348,6 +384,8 @@ public IEnumerable<string> CapturedBlackPieces =>
 
         _lastMoveFrom?.ShowLastMove();
         _lastMoveTo?.ShowLastMove();
+
+        HighlightCheckedKing();
     }
 
     public void RestartGame()

@@ -30,6 +30,18 @@ public partial class SquareViewModel : ObservableObject
     [ObservableProperty]
     private bool isLastMove;
 
+    private bool _isKingInCheck;
+
+    public bool IsKingInCheck
+    {
+        get => _isKingInCheck;
+        set
+        {
+            _isKingInCheck = value;
+            OnPropertyChanged(nameof(SquareColor));
+        }
+    }
+
     public Bitmap? PieceImage
     {
         get
@@ -152,6 +164,16 @@ public partial class SquareViewModel : ObservableObject
     {
         IsLastMove = false;
         OnPropertyChanged(nameof(SquareColor));
+    }
+
+    public void ShowCheck()
+    {
+        IsKingInCheck = true;
+    }
+
+    public void HideCheck()
+    {
+        IsKingInCheck = false;
     }
 
 }
