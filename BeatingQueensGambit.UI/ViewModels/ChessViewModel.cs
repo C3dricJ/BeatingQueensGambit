@@ -52,13 +52,15 @@ public IEnumerable<string> CapturedBlackPieces =>
     public string CurrentTurnText =>
     _game.CurrentTurn.ToString();
 
-    public ChessViewModel()
+    public ChessViewModel(GameSettings? settings = null)
     {
+        settings ??= new GameSettings();
+
         _game = new ChessGame();
 
         _ai = new ChessAI
         {
-            Difficulty = Difficulty.Medium
+            Difficulty = settings.Difficulty
         };
 
         Squares = new ObservableCollection<SquareViewModel>();

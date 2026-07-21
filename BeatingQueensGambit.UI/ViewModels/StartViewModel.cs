@@ -15,7 +15,8 @@ public partial class StartViewModel : ObservableObject
     [
         Difficulty.Easy,
         Difficulty.Medium,
-        Difficulty.Hard
+        Difficulty.Hard,
+        Difficulty.Master
     ];
 
     public int[] TimeControls =>
@@ -25,4 +26,13 @@ public partial class StartViewModel : ObservableObject
         10,
         15
     ];
+
+    public GameSettings BuildSettings()
+    {
+        return new GameSettings
+        {
+            Difficulty = SelectedDifficulty,
+            Minutes = SelectedMinutes
+        };
+    }
 }

@@ -14,8 +14,15 @@ public partial class MainWindow : Window
         DataContext = new ChessViewModel();
     }
 
+    public MainWindow(GameSettings settings)
+    {
+        InitializeComponent();
+
+        DataContext = new ChessViewModel(settings);
+    }
+
     //----------------------------------------------------
-    // Called whenever the user clicks a chess square
+    // Chess Square Click
     //----------------------------------------------------
 
     private void SquarePressed(

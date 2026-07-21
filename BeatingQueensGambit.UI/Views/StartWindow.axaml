@@ -4,7 +4,7 @@
         x:Class="BeatingQueensGambit.UI.Views.StartWindow"
         x:DataType="vm:StartViewModel"
         Width="500"
-        Height="550"
+        Height="600"
         Title="Beating Queen's Gambit">
 
     <StackPanel Margin="30"
@@ -17,9 +17,9 @@
             HorizontalAlignment="Center"/>
 
         <TextBlock
-            Text="Always play Black against White"
+            Text="Play as Black against the Queen's Gambit"
             HorizontalAlignment="Center"
-            FontSize="18"/>
+            FontSize="16"/>
 
         <Separator/>
 
@@ -40,9 +40,12 @@
             SelectedItem="{Binding SelectedMinutes}"/>
 
         <Button
-            Content="Start Game"
-            Height="50"
-            FontSize="18"/>
+            Name="StartButton"
+            Click="StartClicked"
+            Content="START GAME"
+            Height="55"
+            FontSize="18"
+            FontWeight="Bold"/>
 
     </StackPanel>
 
