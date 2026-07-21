@@ -8,6 +8,7 @@ using BeatingQueensGambit.Core.Rules;
 using System.Timers;
 using System.Threading.Tasks;
 using BeatingQueensGambit.Engine.AI;
+using System;
 
 
 namespace BeatingQueensGambit.UI.ViewModels;
@@ -56,7 +57,7 @@ public IEnumerable<string> CapturedBlackPieces =>
     {
         settings ??= new GameSettings();
 
-        _game = new ChessGame();
+        _game = new ChessGame(settings.Opening);
 
         _ai = new ChessAI
         {
@@ -327,7 +328,10 @@ public IEnumerable<string> CapturedBlackPieces =>
         // Simulate AI Thinking
         //
 
-        await Task.Delay(1000);
+        Random random = new();
+
+        await Task.Delay(
+        random.Next(1000, 4500));
 
         //---------------------------------------------------
         // Ask AI for move

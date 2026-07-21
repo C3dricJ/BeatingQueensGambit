@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:BeatingQueensGambit.UI.ViewModels"
+        x:Class="BeatingQueensGambit.UI.Views.GameOverWindow"
+        x:DataType="vm:GameOverViewModel"
+        Width="400"
+        Height="260"
+        Title="Game Over"
+        CanResize="False">
+
+    <StackPanel
+        Margin="25"
+        Spacing="20">
+
+        <TextBlock
+            Text="CHECKMATE"
+            FontSize="28"
+            FontWeight="Bold"
+            HorizontalAlignment="Center"/>
+
+        <TextBlock
+            Text="{Binding Message}"
+            FontSize="22"
+            HorizontalAlignment="Center"/>
+
+        <Button
+            Name="RestartButton"
+            Content="Play Again"
+            Height="45"
+            Click="RestartClicked"/>
+
+        <Button
+            Name="ExitButton"
+            Content="Exit"
+            Height="45"
+            Click="ExitClicked"/>
+
+    </StackPanel>
+
+</Window>

@@ -12,55 +12,29 @@ public class ChessAI
     public Difficulty Difficulty { get; set; } = Difficulty.Easy;
     private readonly Random _random = new();
 
-public Move? ChooseMove(ChessGame game)
+    public Move? ChooseMove(ChessGame game)
     {
         var legalMoves = GetAllLegalMoves(game);
+
+        Console.WriteLine("--------------------------------");
+        Console.WriteLine($"AI Turn: {game.CurrentTurn}");
+        Console.WriteLine($"Status : {game.StatusMessage}");
+        Console.WriteLine($"Legal Moves: {legalMoves.Count}");
+
+        foreach (var move in legalMoves)
+        {
+            Console.WriteLine(
+                $"{move.From.Row},{move.From.Column} -> {move.To.Row},{move.To.Column}");
+        }
+
+        Console.WriteLine("--------------------------------");
 
         if (legalMoves.Count == 0)
             return null;
 
-        //--------------------------------------------------
-        // 1. Capture highest-value piece if possible
-        //--------------------------------------------------
-
-        Move? bestCapture = null;
-        int bestScore = -1;
-
-        foreach (var move in legalMoves)
-        {
-            var target =
-                game.Board.GetPiece(move.To);
-
-            if (target == null)
-                continue;
-
-            int value = target switch
-            {
-                BeatingQueensGambit.Core.Pieces.Pawn => 1,
-                BeatingQueensGambit.Core.Pieces.Knight => 3,
-                BeatingQueensGambit.Core.Pieces.Bishop => 3,
-                BeatingQueensGambit.Core.Pieces.Rook => 5,
-                BeatingQueensGambit.Core.Pieces.Queen => 9,
-                BeatingQueensGambit.Core.Pieces.King => 100,
-                _ => 0
-            };
-
-            if (value > bestScore)
-            {
-                bestScore = value;
-                bestCapture = move;
-            }
-        }
-
-        if (bestCapture != null)
-            return bestCapture;
-
-        //--------------------------------------------------
-        // 2. Otherwise choose a random move
-        //--------------------------------------------------
-
         return legalMoves[_random.Next(legalMoves.Count)];
     }
+
 
     private List<Move> GetAllLegalMoves(ChessGame game)
     {

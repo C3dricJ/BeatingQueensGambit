@@ -8,6 +8,7 @@ using BeatingQueensGambit.Core.Notation;
 using BeatingQueensGambit.Core.Pieces;
 using BeatingQueensGambit.Core.Rules;
 using BeatingQueensGambit.Core.Clock;
+using BeatingQueensGambit.Core.Openings;
 
 namespace BeatingQueensGambit.Core.Game;
 
@@ -31,13 +32,13 @@ public class ChessGame
 
     public ChessClock Clock { get; } = new();
 
-    public ChessGame()
+    public ChessGame(OpeningType opening = OpeningType.Standard)
     {
         Board = new ChessBoard();
 
         Board.Game = this;
 
-        BoardInitializer.InitializeStandardBoard(Board);
+        OpeningLoader.Load(Board, opening);
 
         CurrentTurn = PieceColor.White;
     }
