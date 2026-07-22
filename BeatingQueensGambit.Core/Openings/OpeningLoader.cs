@@ -1,9 +1,12 @@
+using System;
 using BeatingQueensGambit.Core.Board;
 
 namespace BeatingQueensGambit.Core.Openings;
 
 public static class OpeningLoader
 {
+    private static readonly Random _random = new();
+
     public static void Load(
         ChessBoard board,
         OpeningType opening)
@@ -11,7 +14,7 @@ public static class OpeningLoader
         switch (opening)
         {
             case OpeningType.Standard:
-                BoardInitializer.InitializeStandardBoard(board);
+                LoadStandard(board);
                 break;
 
             case OpeningType.QueensGambitAccepted:
@@ -30,52 +33,80 @@ public static class OpeningLoader
                 LoadSemiSlav(board);
                 break;
 
-            case OpeningType.ChigorinDefense:
+            case OpeningType.Chigorin:
                 LoadChigorin(board);
                 break;
 
-            case OpeningType.AlbinCounterGambit:
+            case OpeningType.Albin:
                 LoadAlbin(board);
                 break;
 
-            case OpeningType.RandomTraining:
+            case OpeningType.RandomQueensGambit:
                 LoadRandom(board);
                 break;
         }
     }
 
-    static void LoadQueensGambitAccepted(ChessBoard board)
-    {
+    //--------------------------------------------------------
+    // Individual Openings
+    //--------------------------------------------------------
 
+    private static void LoadStandard(ChessBoard board)
+    {
+        BoardInitializer.InitializeStandardBoard(board);
     }
 
-    static void LoadQueensGambitDeclined(ChessBoard board)
+    private static void LoadQueensGambitAccepted(
+        ChessBoard board)
     {
+        BoardInitializer.InitializeStandardBoard(board);
 
+        BoardInitializer.ApplyMove(board, "d2", "d4");
+
+        BoardInitializer.ApplyMove(board, "d7", "d5");
+
+        BoardInitializer.ApplyMove(board, "c2", "c4");
+
+        BoardInitializer.ApplyMove(board, "d5", "c4");
     }
 
-    static void LoadSlav(ChessBoard board)
+    private static void LoadQueensGambitDeclined(ChessBoard board)
     {
-
+        BoardInitializer.InitializeStandardBoard(board);
     }
 
-    static void LoadSemiSlav(ChessBoard board)
+    private static void LoadSlav(ChessBoard board)
     {
-
+        BoardInitializer.InitializeStandardBoard(board);
     }
 
-    static void LoadChigorin(ChessBoard board)
+    private static void LoadSemiSlav(ChessBoard board)
     {
-
+        BoardInitializer.InitializeStandardBoard(board);
     }
 
-    static void LoadAlbin(ChessBoard board)
+    private static void LoadChigorin(ChessBoard board)
     {
-
+        BoardInitializer.InitializeStandardBoard(board);
     }
 
-    static void LoadRandom(ChessBoard board)
+    private static void LoadAlbin(ChessBoard board)
     {
+        BoardInitializer.InitializeStandardBoard(board);
+    }
 
+    private static void LoadRandom(ChessBoard board)
+    {
+        OpeningType[] openings =
+        {
+            OpeningType.QueensGambitAccepted,
+            OpeningType.QueensGambitDeclined,
+            OpeningType.SlavDefense,
+            OpeningType.SemiSlav,
+            OpeningType.Chigorin,
+            OpeningType.Albin
+        };
+
+        Load(board, openings[_random.Next(openings.Length)]);
     }
 }

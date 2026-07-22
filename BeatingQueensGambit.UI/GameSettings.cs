@@ -10,6 +10,6 @@ public class GameSettings
 
     public int Minutes { get; set; } = 10;
 
-    public OpeningType Opening { get; set; } =
-        OpeningType.QueensGambitDeclined;
+    public OpeningType Opening { get; set; }
+    = OpeningType.RandomQueensGambit;
 }

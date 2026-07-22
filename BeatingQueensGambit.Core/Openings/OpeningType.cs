@@ -12,9 +12,9 @@ public enum OpeningType
 
     SemiSlav,
 
-    ChigorinDefense,
+    Chigorin,
 
-    AlbinCounterGambit,
+    Albin,
 
-    RandomTraining
+    RandomQueensGambit
 }

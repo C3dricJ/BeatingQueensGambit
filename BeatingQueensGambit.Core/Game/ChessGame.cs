@@ -32,8 +32,13 @@ public class ChessGame
 
     public ChessClock Clock { get; } = new();
 
-    public ChessGame(OpeningType opening = OpeningType.Standard)
+    private readonly OpeningType _opening;
+
+    public ChessGame(
+        OpeningType opening = OpeningType.Standard)
     {
+        _opening = opening;
+
         Board = new ChessBoard();
 
         Board.Game = this;
@@ -265,7 +270,7 @@ public class ChessGame
         // Rebuild the starting position
         //----------------------------------------------------
 
-        BoardInitializer.InitializeStandardBoard(Board);
+        OpeningLoader.Load(Board, _opening);
 
         //----------------------------------------------------
         // Reset game state

@@ -1,5 +1,7 @@
 using BeatingQueensGambit.Core.Pieces;
 using BeatingQueensGambit.Core.Enums;
+using BeatingQueensGambit.Core.Models;
+using BeatingQueensGambit.Core.Moves;
 
 namespace BeatingQueensGambit.Core.Board;
 
@@ -39,5 +41,24 @@ public static class BoardInitializer
             board.Squares[0,4] = new King(PieceColor.Black);
             board.Squares[7,4] = new King(PieceColor.White);
         }
+    }
+
+    public static void ApplyMove(
+        ChessBoard board,
+        string from,
+        string to)
+    {
+        Position Parse(string square)
+        {
+            int column = square[0] - 'a';
+            int row = 8 - int.Parse(square[1].ToString());
+
+            return new Position(row, column);
+        }
+
+        board.ApplyMove(
+            new Move(
+                Parse(from),
+                Parse(to)));
     }
 }

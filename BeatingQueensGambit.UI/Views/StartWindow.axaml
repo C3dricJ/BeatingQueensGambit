@@ -3,50 +3,82 @@
         xmlns:vm="using:BeatingQueensGambit.UI.ViewModels"
         x:Class="BeatingQueensGambit.UI.Views.StartWindow"
         x:DataType="vm:StartViewModel"
-        Width="500"
-        Height="600"
+        Width="550"
+        Height="720"
         Title="Beating Queen's Gambit">
 
-    <StackPanel Margin="30"
-                Spacing="20">
+    <ScrollViewer>
 
-        <TextBlock
-            Text="♚ Beating Queen's Gambit ♚"
-            FontSize="30"
-            FontWeight="Bold"
-            HorizontalAlignment="Center"/>
+        <StackPanel Margin="30"
+                    Spacing="18">
 
-        <TextBlock
-            Text="Play as Black against the Queen's Gambit"
-            HorizontalAlignment="Center"
-            FontSize="16"/>
+            <TextBlock
+                Text="♚ Beating Queen's Gambit ♚"
+                FontSize="30"
+                FontWeight="Bold"
+                HorizontalAlignment="Center"/>
 
-        <Separator/>
+            <TextBlock
+                Text="Train against the Queen's Gambit as Black"
+                HorizontalAlignment="Center"
+                FontSize="16"/>
 
-        <TextBlock
-            Text="Difficulty"
-            FontWeight="Bold"/>
+            <Separator/>
 
-        <ComboBox
-            ItemsSource="{Binding Difficulties}"
-            SelectedItem="{Binding SelectedDifficulty}"/>
+            <!-- Difficulty -->
 
-        <TextBlock
-            Text="Time Control"
-            FontWeight="Bold"/>
+            <TextBlock
+                Text="Difficulty"
+                FontWeight="Bold"/>
 
-        <ComboBox
-            ItemsSource="{Binding TimeControls}"
-            SelectedItem="{Binding SelectedMinutes}"/>
+            <ComboBox
+                ItemsSource="{Binding Difficulties}"
+                SelectedItem="{Binding SelectedDifficulty}"/>
 
-        <Button
-            Name="StartButton"
-            Click="StartClicked"
-            Content="START GAME"
-            Height="55"
-            FontSize="18"
-            FontWeight="Bold"/>
+            <!-- Time -->
 
-    </StackPanel>
+            <TextBlock
+                Text="Player Time Control"
+                FontWeight="Bold"/>
+
+            <ComboBox
+                ItemsSource="{Binding TimeControls}"
+                SelectedItem="{Binding SelectedMinutes}"/>
+
+            <TextBlock
+                FontStyle="Italic"
+                FontSize="12"
+                Text="The AI has unlimited thinking time."/>
+
+            <!-- Opening -->
+
+            <Separator/>
+
+            <TextBlock
+                Text="Opening Position"
+                FontWeight="Bold"/>
+
+            <ComboBox
+                ItemsSource="{Binding Openings}"
+                SelectedItem="{Binding SelectedOpening}"/>
+
+            <TextBlock
+                FontSize="12"
+                FontStyle="Italic"
+                Text="Choose a Queen's Gambit variation to practice."/>
+
+            <Separator/>
+
+            <Button
+                Name="StartButton"
+                Click="StartClicked"
+                Content="START GAME"
+                Height="60"
+                FontSize="18"
+                FontWeight="Bold"/>
+
+        </StackPanel>
+
+    </ScrollViewer>
 
 </Window>
