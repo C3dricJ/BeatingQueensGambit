@@ -34,18 +34,24 @@ public class ChessGame
 
     private readonly OpeningType _opening;
 
-    public ChessGame(
-        OpeningType opening = OpeningType.Standard)
+    public ChessGame(OpeningType opening = OpeningType.Standard)
     {
-        _opening = opening;
-
         Board = new ChessBoard();
 
         Board.Game = this;
 
-        OpeningLoader.Load(Board, opening);
+        // Always start from the normal position
+        BoardInitializer.InitializeStandardBoard(Board);
 
         CurrentTurn = PieceColor.White;
+
+        // Replay the selected opening
+        if (opening != OpeningType.Standard)
+        {
+            OpeningReplay.PlayOpening(this, opening);
+        }
+
+        EndTurn();
     }
 
     public void MakeMove(Move move)
